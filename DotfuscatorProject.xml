@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE dotfuscator SYSTEM "http://www.preemptive.com/dotfuscator/dtd/dotfuscator_v2.4.dtd">
+<dotfuscator version="2.3">
+  <global>
+    <option>inheritoas</option>
+    <option>suppressildasm</option>
+  </global>
+  <input>
+    <loadpaths />
+    <asmlist>
+      <inputassembly refid="1aae97c4-e654-4cd7-85d8-cf471030a71a">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.ApiClient.dll" />
+      </inputassembly>
+      <inputassembly refid="b5619ff5-7152-4be2-b5b7-6cda80827dfd">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Core.dll" />
+      </inputassembly>
+      <inputassembly refid="d835c135-d84e-4735-90f4-a69f4c1ba5a4">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.exe" />
+      </inputassembly>
+    </asmlist>
+  </input>
+  <output>
+    <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release\Final" />
+  </output>
+  <renaming>
+    <option>xmlserialization</option>
+    <referencerulelist />
+  </renaming>
+  <controlflow level="high" />
+  <stringencrypt>
+    <includelist>
+      <assembly>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.ApiClient.dll" />
+      </assembly>
+      <assembly>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Core.dll" />
+      </assembly>
+      <assembly>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.exe" />
+      </assembly>
+    </includelist>
+  </stringencrypt>
+  <removal>
+    <referencerulelist />
+  </removal>
+  <linking />
+  <sos mergeruntime="true">
+    <option>version:v4</option>
+    <option>dontsendtamper</option>
+  </sos>
+  <smartobfuscation>
+    <smartobfuscationreport verbosity="all" overwrite="false" />
+  </smartobfuscation>
+</dotfuscator>

@@ -1,0 +1,11 @@
+Username: Ag95PDSnja
+Database name: Ag95PDSnja
+Password: nvS0dKOhzY
+Server: remotemysql.com
+Port: 3306
+
+Username: IVg0ywhIfP
+Database name: IVg0ywhIfP
+Password: fIcY4HxjbB
+Server: remotemysql.com
+Port: 3306

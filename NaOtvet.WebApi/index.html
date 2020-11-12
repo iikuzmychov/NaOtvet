@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> 
+<html lang="en"> <!--<![endif]-->  
+<head>
+    <title>НаОтвет</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="UFT0K44FLKw9g_gS2c5hcN1792Y-IEZ3SH7neqKQd1A" />
+    <meta name="Программа для прохождения онлайн-тестов на украинском сайте На Урок (naurok.com.ua) для Windows 7, 8, 10, x32, x64, x86" content="">
+    <meta name="KuzCode https://www.youtube.com/c/kuzcode" content="">
+    <script data-ad-client="ca-pub-9337915208598365" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head> 
+
+<body data-spy="scroll">
+
+    <!---//Facebook button code-->
+    <div id="fb-root"></div>
+    <script>
+    (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- ******HEADER****** -->
+    <header id="header" class="header">
+        <div class="container">
+            <h1 class="logo pull-left">
+                <a class="scrollto" href="#promo">
+                    <span class="logo-title">НаОтвет</span>
+                </a>
+            </h1><!--//logo-->
+            <nav id="main-nav" class="main-nav navbar-right" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Навигация</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button><!--//nav-toggle-->
+                </div><!--//navbar-header-->
+                <div class="navbar-collapse collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active nav-item sr-only"><a class="scrollto" href="#promo">Начало</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#about">Про приложение</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#features">Возможности</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#license">Видео-обзор</a></li>
+                        <li class="nav-item last"><a class="scrollto" href="#contact">Контакты</a></li>
+                    </ul><!--//nav-->
+                </div><!--//navabr-collapse-->
+            </nav><!--//main-nav-->
+        </div>
+    </header><!--//header-->
+    <!-- ******PROMO****** -->
+    <section id="promo" class="promo section offset-header">
+        <div class="container text-center">
+            <h2 class="title"><text style="color:#F48618">На</text>Ответ</h2>
+            <p class="intro">Беслатная программа для Windows для прохождения тестов на сайте <a href="https://naurok.ua" style="color:white" target="_blank">naurok.ua</a></p>
+            <div class="btns">
+                <a class="btn btn-cta-primary" onclick="downloadLastVersion()">Скачать</a>
+                <a class="btn btn-cta-secondary" href="https://t.me/naurokanswers" target="_blank">Канал в Telegram</a>
+            </div>
+            <!--<div style="margin-top: 20px;">
+                <script async src="https://telegram.org/js/telegram-widget.js?12" data-telegram-post="naurokanswers/56" data-width="100%"></script>
+            </div>-->
+            <ul class="meta list-inline">
+                <li>Автор: <a href="https://www.youtube.com/c/kuzcode" target="_blank">KuzCode</a></li>
+                <li>Версия: <text id="version"></text></li>
+                <li>Дата публикации: <text id="publishDate"></text></li>
+                <li>
+                    Кол-во скачиваний: <text id="downloadsCount"></text>
+                    <a style="cursor: pointer" onclick="updateVersionInfo()"><i class="fas fa-sync-alt"></i></a>
+                </li>
+            </ul><!--//meta-->
+        </div><!--//container-->
+    </section><!--//promo-->
+    <!-- ******ABOUT****** -->
+    <section id="about" name="about" class="about section">
+        <div class="container">
+            <h2 class="title text-center">Что такое НаОтвет?</h2>
+            <p class="intro text-center">
+                В Украине, особенно сейчас, в период пандемии, когда многие дети учатся удалённо, всё большую популярность среди учителей набирают сайты для
+                онлайн-тестирований. Одним из таких сайтов является сайт <a href="https://naurok.ua" target="_blank">"Наурок."</a>
+                НаОтвет - это программа для Windows, которая позволяет пройти любой тест, созданный на данном сайте.
+            </p>
+            <div class="row">
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-question"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Любые вопросы</h3>
+                        <p>Программа может найти ответы на все вопросы из любого теста, независимо от того, публичный он или приватный, с множеством вопросов или нет</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-dollar-sign"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Цена</h3>
+                        <p>Программа является абсолютно бесплатной и любой желающий может ей воспользоваться, скачав с данного или с любого другого сайта</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-flask"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Научный проект</h3>
+                        <p>Программа созданна в рамках исследования автора про надёжность популярных в Украине сайтов для онлайн-тестирований</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+            </div><!--//row-->
+        </div><!--//container-->
+    </section><!--//about-->
+    <!-- ******FEATURES****** -->
+    <section id="features" class="features section">
+        <div class="container text-center">
+            <h2 class="title">Функции</h2>
+            <ul class="feature-list list-unstyled">
+                <li><i class="fa fa-check"></i> Прохождение любого теста</li>
+                <li><i class="fa fa-check"></i> Незаметность программы для учителя</li>
+                <li><i class="fa fa-check"></i> Небольшое время работы</li>
+                <li><i class="fa fa-check"></i> Простота и понятность в использовании</li>
+                <li><i class="fa fa-check"></i> Режим быстрого поиска</li>
+                <li><i class="fa fa-check"></i> Ещё один длинный пункт для красоты</li>
+            </ul>
+        </div><!--//container-->
+    </section><!--//features-->
+    <!-- ******LICENSE****** -->
+    <section id="license" class="license section">
+        <div class="container">
+            <div class="license-inner">
+                <h2 class="title text-center">Видео-обзор</h2>
+                <div id="wrapper" style="width:720px; height:405px">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/75LD6gAhhis" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div><!--//info-->
+            </div><!--//license-inner-->
+        </div><!--//container-->
+    </section><!--//how-->
+    <!-- ******CONTACT****** -->
+    <section id="contact" class="contact section has-pattern">
+        <div class="container">
+            <div class="contact-inner">
+                <h2 class="title  text-center">Контакты</h2>
+                <p class="intro  text-center">Вы можете написать мне на почту, если у вас есть какие-то вопросы или предложения</p>
+                <div class="author-message">
+                    <div class="profile">
+                        <img class="img-responsive" src="assets/images/kuzcode.png" alt="" />
+                    </div><!--//profile-->
+                    <div class="speech-bubble">
+                        <h3 class="sub-title">Что ещё интересного?</h3>
+                        <p>Если вы хотите знать о создании других интересных проектов, подписывайтесь на ютуб. Там также есть разные полезные материалы для программистов.</p>
+                        <div class="source">
+                            <span class="name">KuzCode</span>
+                            <br />
+                            <span class="title">C# разработчик, разработчик "Всеобот" и "Наурок Ответы"</span>
+                        </div><!--//source-->
+                    </div><!--//speech-bubble-->
+                </div><!--//author-message-->
+                <div class="clearfix"></div>
+                <div class="info text-center">
+                    <ul class="social-icons list-inline">
+                        <li><a href="https://www.youtube.com/c/kuzcode" target="_blank"><i class="fa fa-youtube"></i></i></a></li>
+                        <li class="last"><a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=kuz.code.official@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div><!--//info-->
+            </div><!--//contact-inner-->
+        </div><!--//container-->
+    </section><!--//contact-->
+    <!-- ******FOOTER****** -->
+    <footer class="footer">
+        <div class="container text-center">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">KuzCode 2020</small>
+        </div><!--//container-->
+    </footer><!--//footer-->
+
+    <script>
+        function updateVersionInfo() {
+            var loadingText = "загрузка...";
+            document.getElementById("downloadsCount").innerText = loadingText;
+            document.getElementById("publishDate").innerText    = loadingText;
+            document.getElementById("version").innerText        = loadingText;
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var json = JSON.parse(xhr.response);
+                    document.getElementById("downloadsCount").innerText = json["downloadsCount"].toLocaleString();
+                    document.getElementById("publishDate").innerText    = new Date(json["publishDate"]).toLocaleDateString("ru-RU");
+                    document.getElementById("version").innerText        = json["version"];
+                }
+            };
+
+            xhr.open("GET", "/api/application/lastVersion");
+            xhr.send();
+        }
+
+        function downloadLastVersion() {
+            window.open("assets/files/Установщик НаОтвет.exe", '_blank');
+            newDownload();
+        }
+
+        function newDownload() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4)
+                    document.getElementById("downloadsCount").innerText = parseInt(xhr.responseText).toLocaleString();
+            };
+
+            xhr.open("PUT", "/api/application/lastVersion/newDownload");
+            xhr.send();
+        }
+
+        updateVersionInfo();
+    </script>
+    <script src="https://kit.fontawesome.com/2b47558e31.js" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script><!-- Javascript -->
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+</body>
+</html> 
+
