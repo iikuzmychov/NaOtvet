@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NaOtvet
+namespace NaOtvet.Core
 {
     public class OnErrorArgs : EventArgs
     {

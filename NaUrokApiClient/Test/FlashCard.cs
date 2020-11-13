@@ -1,4 +1,4 @@
-﻿namespace NaOtvet.Core
+﻿namespace NaUrokApiClient
 {
     public class FlashCard
     {

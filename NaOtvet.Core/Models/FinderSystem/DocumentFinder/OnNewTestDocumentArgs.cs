@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace NaOtvet
+namespace NaOtvet.Core
 {
-    public class OnNewDocumentArgs : EventArgs
+    public class OnNewTestDocumentArgs : EventArgs
     {
         public int DocumentId { get; set; }
 
-        public OnNewDocumentArgs(int documentId)
+        public OnNewTestDocumentArgs(int documentId)
         {
             DocumentId = documentId;
         }

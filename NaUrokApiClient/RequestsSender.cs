@@ -1,24 +1,26 @@
 ﻿using RestSharp;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace NaOtvet
+namespace NaUrokApiClient
 {
-    public class RequestsSender
+    class RequestsSender
     {
-        public const string BaseUrl = "https://naurok.com.ua";
-        private CookieContainer cookies = new CookieContainer();
-        private RestClient client = new RestClient(BaseUrl);
+        private const string BaseUrl = "https://naurok.com.ua";
+        private CookieContainer cookies;
+        private RestClient client;
 
         public RequestsSender()
-        {
+        {            
+            client = new RestClient(BaseUrl);
+            cookies = new CookieContainer();
+
             client.CookieContainer = cookies;
         }
 
-        public async Task<IRestResponse> GetLoginPage()
+        public IRestResponse GetLoginPage()
         {
             var request = new RestRequest("/login");
-            return await client.ExecuteGetAsync(request);
+            return client.Get(request);
         }
 
         public IRestResponse GetTestingPage(string sessionUuid)
@@ -27,14 +29,14 @@ namespace NaOtvet
             return client.Get(request);
         }
 
-        public async Task<IRestResponse> Autorization(string login, string password, string csrf)
+        public IRestResponse Autorization(string login, string password, string csrf)
         {
             var request = new RestRequest("/login");
             request.AddParameter("_csrf", csrf);
             request.AddParameter("LoginForm[login]", login);
             request.AddParameter("LoginForm[password]", password);
 
-            return await client.ExecutePostAsync(request);
+            return client.Post(request);
         }
 
         public IRestResponse GetSession(int id)
@@ -51,10 +53,10 @@ namespace NaOtvet
             return client.Post(request);
         }
 
-        public async Task<IRestResponse> GetProfileTests(int profileId, int page)
+        public IRestResponse GetProfileTestsDocuments(int profileId, int page)
         {
             var request = new RestRequest($"/profile/{profileId}?storinka={page}");
-            return await client.ExecuteGetAsync(request);
+            return client.Get(request);
         }
 
         /*public async Task<IRestResponse> PutAnswer(int sessionId, QuestionOption[] answers)

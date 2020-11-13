@@ -1,8 +1,6 @@
-﻿using MySql.Data.MySqlClient;
-using NaOtvet.ApiClient;
+﻿using NaOtvet.ApiClient;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace NaOtvet

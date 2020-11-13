@@ -8,18 +8,24 @@ using System.Reflection;
 using NaOtvet.ApiClient;
 using NaOtvet.Core;
 using System.Threading.Tasks;
+using NaUrokApiClient;
+using System.Media;
 
 namespace NaOtvet
 {
     public partial class MainForm : Form
     {        
         private readonly int threadsCount = 5;
-        private readonly int finderIterationsCount = 1000;
+        private readonly int finderIterationsCount = 500;
 
-        private LoadingForm loadingForm = new LoadingForm();
-        private Stopwatch stopwatch = new Stopwatch();
-        private FinderSystem finderSystem = null;        
+        private readonly LoadingForm loadingForm = new LoadingForm();
+        private readonly Stopwatch stopwatch = new Stopwatch();
+
+        private NaUrokClient client;
+        private FinderSystem finderSystem;       
+        
         private bool youtubeVideoOpened = false;
+
         private string youtubeTutorialUrl;
         private string youtubeChannelUrl;
         private WebSiteAccount naurokAccount;
@@ -46,6 +52,8 @@ namespace NaOtvet
                 }
 
                 LoadRemoteData();
+
+                client = new NaUrokClient(naurokAccount.Login, naurokAccount.Password);
             }
             catch (Exception)
             {
@@ -98,11 +106,11 @@ namespace NaOtvet
             {
                 if (finderSystem is null)
                 {
-                    var accountData = new AccountLoginData() { Login = naurokAccount.Login, Password = naurokAccount.Password };
-                    finderSystem = new FinderSystem(accountData, UuIdText.Text, threadsCount, finderIterationsCount);
-                    finderSystem.OnNewDocument += OnNewDocument;
-                    finderSystem.OnDocumentIsFound += OnDocumentIsFound;
-                    finderSystem.OnError += OnError;
+                    finderSystem = new FinderSystem(client, UuIdText.Text, threadsCount, finderIterationsCount);
+                    finderSystem.OnNewDocument += FinderSystem_OnNewDocument;
+                    finderSystem.OnDocumentIsFound += FinderSystem_OnDocumentIsFound;
+                    finderSystem.OnError += FinderSystem_OnError;
+
                     finderSystem.Start();
                 }
                 else
@@ -112,7 +120,7 @@ namespace NaOtvet
             }
             catch (Exception exception)
             {
-                OnError(this, new OnErrorArgs(exception));
+                OnFatalError(exception);
             }
         }
 
@@ -227,8 +235,43 @@ namespace NaOtvet
             LogText.AppendText(text + Environment.NewLine);
         }
 
+        private void LogError(string errorText)
+        {
+            Log("ОШИБКА: " + errorText);
+        }
 
-        private void OnNewDocument(object sender, OnNewDocumentArgs args)
+        private void ThrowFatalError(string errorText)
+        {
+            Stop();
+            SystemSounds.Exclamation.Play();
+
+            MessageBox.Show(errorText, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+
+        private void OnFatalError(Exception exception)
+        {
+            if (HelpClass.IsInternetConnectionAvailable() == false)
+            {
+                ThrowFatalError("Нет доступа к интернету.");
+                return;
+            }
+
+            try
+            {
+                throw exception;
+            }
+            catch (AnsweredQuestionException)
+            {
+                ThrowFatalError("Вы ответели на некоторые вопросы теста, по-этому программа не сможет найти ответы.");
+            }
+            catch
+            {
+                ThrowFatalError("Возникла неизвестная ошибка. Возможно, тест был завершён/не существует. Текст ошибки: " + exception.Message);                    
+            }
+        }
+
+        private void FinderSystem_OnNewDocument(object sender, OnNewTestDocumentArgs args)
         {
             if ((sender as FinderSystem).TestIsFound == false)
             {
@@ -240,7 +283,7 @@ namespace NaOtvet
             }
         }
 
-        private void OnDocumentIsFound(object sender, OnDocumentIsFoundArgs args)
+        private void FinderSystem_OnDocumentIsFound(object sender, OnTestDocumentIsFoundArgs args)
         {
 #if DEBUG
             Log($"НАЙДЕНО: {args.DocumentId}.");
@@ -254,34 +297,18 @@ namespace NaOtvet
             this.Invoke(new Action(() =>
             {
                 Stop();                
-                System.Media.SystemSounds.Asterisk.Play();
+                SystemSounds.Asterisk.Play();
 
-                var answersForm = new AnswersForm(finderSystem.GetTestSession());
+                var answersForm = new AnswersForm(args.TestSession);
                 answersForm.TopMost = true;
                 answersForm.Show();                
                 answersForm.TopMost = false;
             }));
         }
 
-        private void OnError(object sender, OnErrorArgs args)
+        private void FinderSystem_OnError(object sender, OnErrorArgs args)
         {            
-            this.Invoke(new Action(() =>
-            {
-                Stop();
-                System.Media.SystemSounds.Exclamation.Play();
-
-                if (finderSystem != null && finderSystem.GetTestSession() != null &&
-                    finderSystem.GetTestSession().Questions.Count != finderSystem.GetTestSession().TestQuestionsCount)
-                {
-                    MessageBox.Show("Вы ответели на некоторые вопросы теста, поэтому программа не сможет найти ответы",
-                      "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("Возникла неизвестная ошибка. Возможно, вы ввели неверный UuId или тест уже закончен.",
-                      "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }));
+            this.Invoke(new Action(() => LogError(args.Exception.Message)));
         }
     }
 }

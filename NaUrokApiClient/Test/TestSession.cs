@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NaOtvet.Core
+namespace NaUrokApiClient
 {
     public class TestSession
     {

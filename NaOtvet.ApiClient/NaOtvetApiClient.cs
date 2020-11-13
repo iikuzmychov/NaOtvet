@@ -88,12 +88,11 @@ namespace NaOtvet.ApiClient
             }
         }
 
-        public static void PostSolvedTestSession(TestSession session, int documentId)
+        public static void PostSolvedTestSession(SolvedTestSession session)
         {
             using (var client = new HttpClient())
             {
-                var dataObject = new { session.Id, session.SettingsId, testId = documentId };
-                var data = new StringContent(JsonConvert.SerializeObject(dataObject), Encoding.UTF8, "application/json");
+                var data = new StringContent(JsonConvert.SerializeObject(session), Encoding.UTF8, "application/json");
                 
                 client.PostAsync(BaseUrl + $"/api/tests/solvedSessions/new", data).Wait();
             }

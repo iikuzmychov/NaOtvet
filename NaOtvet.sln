@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaOtvet.ApiClient", "NaOtve
 		{A713185A-6C99-4B8E-962E-AECAD505049D} = {A713185A-6C99-4B8E-962E-AECAD505049D}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaUrokApiClient", "NaUrokApiClient\NaUrokApiClient.csproj", "{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,18 @@ Global
 		{BD8D1BDD-39A1-476E-A932-9FD3A92F86A3}.Release|x64.Build.0 = Release|Any CPU
 		{BD8D1BDD-39A1-476E-A932-9FD3A92F86A3}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD8D1BDD-39A1-476E-A932-9FD3A92F86A3}.Release|x86.Build.0 = Release|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Debug|x64.Build.0 = Debug|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Release|x64.ActiveCfg = Release|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Release|x64.Build.0 = Release|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
