@@ -347,9 +347,13 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NaOtvet.Core\NaOtvet.Core.csproj">
-      <Project>{a713185a-6c99-4b8e-962e-aecad505049d}</Project>
-      <Name>NaOtvet.Core</Name>
+    <ProjectReference Include="..\NaOtvet.Api.Models\NaOtvet.Api.Models.csproj">
+      <Project>{bbfbc47e-5a09-48eb-81d7-2ee1ba5cae69}</Project>
+      <Name>NaOtvet.Api.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NaUrokApiClient\NaUrokApiClient.csproj">
+      <Project>{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}</Project>
+      <Name>NaUrokApiClient</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

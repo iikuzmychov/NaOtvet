@@ -1,4 +1,4 @@
-﻿using NaOtvet.Core;
+﻿using NaOtvet.Api.Models;
 using NaOtvet.WebApi.Models;
 using System;
 using System.Linq;

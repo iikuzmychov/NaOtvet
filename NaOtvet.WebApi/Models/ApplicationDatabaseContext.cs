@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NaOtvet.Core;
+using NaOtvet.Api.Models;
 
 namespace NaOtvet.WebApi.Models
 {

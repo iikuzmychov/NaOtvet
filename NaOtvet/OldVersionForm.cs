@@ -1,4 +1,4 @@
-﻿using NaOtvet.ApiClient;
+﻿using NaOtvet.Api.Client;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -19,7 +19,7 @@ namespace NaOtvet
         {
             try
             {
-                downloadUrl = NaOtvetApiClient.GetWebLink("downloadPage").Url;
+                downloadUrl = NaOtvetClient.GetWebLink("downloadPage").Url;
             }
             catch (Exception) { }
         }

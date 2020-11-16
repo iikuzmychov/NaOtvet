@@ -56,11 +56,6 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=0.9.628.0, Culture=neutral, PublicKeyToken=2a8ab48044d2601e" />
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=0.9.628.0, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Microsoft.Web.WebView2.WinForms.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -107,6 +102,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestInfoForm.Designer.cs">
+      <DependentUpon>TestInfoForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AnswersForm.resx">
       <DependentUpon>AnswersForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +130,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TestInfoForm.resx">
+      <DependentUpon>TestInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -163,16 +167,20 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NaOtvet.ApiClient\NaOtvet.ApiClient.csproj">
+    <ProjectReference Include="..\NaOtvet.Api.Client\NaOtvet.Api.Client.csproj">
       <Project>{bd8d1bdd-39a1-476e-a932-9fd3a92f86a3}</Project>
-      <Name>NaOtvet.ApiClient</Name>
+      <Name>NaOtvet.Api.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NaOtvet.Api.Models\NaOtvet.Api.Models.csproj">
+      <Project>{bbfbc47e-5a09-48eb-81d7-2ee1ba5cae69}</Project>
+      <Name>NaOtvet.Api.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\NaOtvet.Core\NaOtvet.Core.csproj">
       <Project>{a713185a-6c99-4b8e-962e-aecad505049d}</Project>
       <Name>NaOtvet.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\NaUrokApiClient\NaUrokApiClient.csproj">
-      <Project>{7A775B0B-76DB-4005-8F84-1AC9154C9DBD}</Project>
+      <Project>{7a775b0b-76db-4005-8f84-1ac9154c9dbd}</Project>
       <Name>NaUrokApiClient</Name>
     </ProjectReference>
   </ItemGroup>

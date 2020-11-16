@@ -11,7 +11,7 @@ namespace NaUrokApiClient
         ManyAnswers
     }
 
-    public class TestQuestion
+    public class TestQuestion : ICloneable
     {
         public int Id { get; set; }
         public int Points { get; set; }
@@ -24,6 +24,25 @@ namespace NaUrokApiClient
         {
             Options = new List<QuestionOption>();
             Answers = new List<QuestionOption>();
+        }
+
+        public object Clone()
+        {
+            var question = new TestQuestion();
+            question.Id         = Id;
+            question.Points     = Points;
+            question.Content    = Content;
+            question.Type       = Type;
+            question.Options    = Options.Select(option => (QuestionOption)option.Clone()).ToList();
+            question.Answers    = Answers.Select(answer => (QuestionOption)answer.Clone()).ToList();
+
+            foreach (var option in Options)
+                option.Question = this;
+
+            foreach (var answer in Answers)
+                answer.Question = this;
+
+            return question;
         }
 
         public bool IsCorrectFlashCard(FlashCard card)

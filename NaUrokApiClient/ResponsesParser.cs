@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -59,6 +60,25 @@ namespace NaUrokApiClient
             session.Id                  = json["session"]["id"].Value<int>();
             session.SettingsId          = json["settings"]["id"]?.Value<int?>();
             session.CreatorId           = json["settings"]["account_id"]?.Value<int?>();
+            session.TestName            = json["settings"]["name"]?.ToString();
+            session.StartDateTime       = DateTimeOffset.FromUnixTimeSeconds(json["session"]["start_at"].Value<long>()).LocalDateTime;
+
+            bool showTimer;
+
+            if (json["settings"]["show_timer"] is null)
+                showTimer = false;
+            else
+                showTimer = json["settings"]["show_timer"].Value<bool>();
+
+            if (json["settings"]["duration"] != null)
+                session.Duration = showTimer ? TimeSpan.FromMinutes(json["settings"]["duration"].Value<int>()) : (TimeSpan?)null;
+
+            if (json["settings"]["deadline"] != null)
+                session.TestEndDateTime     = DateTimeOffset.FromUnixTimeSeconds(json["settings"]["deadline"].Value<long>()).LocalDateTime;
+
+            if (json["settings"]["created_at"] != null)
+                session.TestStartDateTime = DateTimeOffset.FromUnixTimeSeconds(json["settings"]["created_at"].Value<long>()).LocalDateTime;
+
             session.TestName            = json["settings"]["name"]?.ToString();
             session.TestQuestionsCount  = json["document"]["questions"].Value<int>();
 

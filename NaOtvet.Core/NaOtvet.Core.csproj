@@ -42,19 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ApplicationVersion.cs" />
-    <Compile Include="Models\FinderSystem\DocumentFinder\TestDocumentFinder.cs" />
-    <Compile Include="Models\FinderSystem\DocumentFinder\OnTestDocumentIsFoundArgs.cs" />
-    <Compile Include="Models\FinderSystem\DocumentFinder\OnNewTestDocumentArgs.cs" />
-    <Compile Include="Models\FinderSystem\FinderSystem.cs" />
-    <Compile Include="Models\FinderSystem\DocumentFinder\OnErrorArgs.cs" />
-    <Compile Include="Models\FinderSystem\AnsweredQuestionException.cs" />
-    <Compile Include="Models\SolvedTestSession.cs" />
-    <Compile Include="Models\WebSiteAccount.cs" />
-    <Compile Include="Models\WebLink.cs" />
+    <Compile Include="Finder\TestDocumentFinder.cs" />
+    <Compile Include="Finder\OnTestDocumentIsFoundArgs.cs" />
+    <Compile Include="Finder\OnNewTestDocumentArgs.cs" />
+    <Compile Include="FinderSystem.cs" />
+    <Compile Include="Finder\OnErrorArgs.cs" />
+    <Compile Include="AnsweredQuestionException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NaOtvet.Api.Models\NaOtvet.Api.Models.csproj">
+      <Project>{bbfbc47e-5a09-48eb-81d7-2ee1ba5cae69}</Project>
+      <Name>NaOtvet.Api.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NaOtvet.Api.Client\NaOtvet.Api.Client.csproj">
+      <Project>{bd8d1bdd-39a1-476e-a932-9fd3a92f86a3}</Project>
+      <Name>NaOtvet.Api.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NaUrokApiClient\NaUrokApiClient.csproj">
       <Project>{7a775b0b-76db-4005-8f84-1ac9154c9dbd}</Project>
       <Name>NaUrokApiClient</Name>

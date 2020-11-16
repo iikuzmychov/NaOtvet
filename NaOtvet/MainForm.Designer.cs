@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.LogText = new System.Windows.Forms.TextBox();
             this.StartButton = new System.Windows.Forms.Button();
@@ -35,9 +36,15 @@
             this.StopButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.OpenTestButton = new System.Windows.Forms.Button();
             this.LogoImage = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AnswersPage = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.TestInfoButton = new System.Windows.Forms.Button();
+            this.TestTimeLeftText = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.ClearUuIdTextButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,20 +59,23 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.JoinNaurokLabel = new System.Windows.Forms.LinkLabel();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.OpenTestButton = new System.Windows.Forms.Button();
+            this.TestTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImage)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.AnswersPage.SuspendLayout();
-            this.GuidePage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.GuidePage.SuspendLayout();
             this.SuspendLayout();
             // 
             // LogText
@@ -73,13 +83,13 @@
             this.LogText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.LogText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.LogText.Location = new System.Drawing.Point(6, 118);
+            this.LogText.Location = new System.Drawing.Point(6, 167);
             this.LogText.MaxLength = 600000;
             this.LogText.Multiline = true;
             this.LogText.Name = "LogText";
             this.LogText.ReadOnly = true;
             this.LogText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.LogText.Size = new System.Drawing.Size(248, 221);
+            this.LogText.Size = new System.Drawing.Size(248, 213);
             this.LogText.TabIndex = 0;
             this.LogText.TabStop = false;
             // 
@@ -89,7 +99,7 @@
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.StartButton.Location = new System.Drawing.Point(0, 0);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(180, 41);
+            this.StartButton.Size = new System.Drawing.Size(162, 41);
             this.StartButton.TabIndex = 2;
             this.StartButton.Text = "Старт";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -112,7 +122,7 @@
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.StopButton.Location = new System.Drawing.Point(0, 0);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(134, 41);
+            this.StopButton.Size = new System.Drawing.Size(141, 41);
             this.StopButton.TabIndex = 3;
             this.StopButton.Text = "Стоп";
             this.StopButton.UseVisualStyleBackColor = true;
@@ -122,7 +132,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(6, 90);
+            this.label1.Location = new System.Drawing.Point(6, 139);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 25);
             this.label1.TabIndex = 4;
@@ -141,10 +151,40 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Size = new System.Drawing.Size(510, 41);
-            this.splitContainer1.SplitterDistance = 180;
+            this.splitContainer1.SplitterDistance = 162;
             this.splitContainer1.TabIndex = 5;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.OpenTestButton);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.StopButton);
+            this.splitContainer3.Size = new System.Drawing.Size(344, 41);
+            this.splitContainer3.SplitterDistance = 199;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // OpenTestButton
+            // 
+            this.OpenTestButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OpenTestButton.Enabled = false;
+            this.OpenTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.OpenTestButton.Location = new System.Drawing.Point(0, 0);
+            this.OpenTestButton.Name = "OpenTestButton";
+            this.OpenTestButton.Size = new System.Drawing.Size(199, 41);
+            this.OpenTestButton.TabIndex = 4;
+            this.OpenTestButton.Text = "Открыть тест";
+            this.OpenTestButton.UseVisualStyleBackColor = true;
+            this.OpenTestButton.Click += new System.EventHandler(this.OpenTestButton_Click);
             // 
             // LogoImage
             // 
@@ -154,9 +194,9 @@
             this.LogoImage.BackColor = System.Drawing.Color.Black;
             this.LogoImage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LogoImage.Image = global::NaOtvet.Properties.Resources.kuzcode_logo;
-            this.LogoImage.Location = new System.Drawing.Point(260, 118);
+            this.LogoImage.Location = new System.Drawing.Point(260, 167);
             this.LogoImage.Name = "LogoImage";
-            this.LogoImage.Size = new System.Drawing.Size(256, 221);
+            this.LogoImage.Size = new System.Drawing.Size(256, 213);
             this.LogoImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LogoImage.TabIndex = 6;
             this.LogoImage.TabStop = false;
@@ -171,12 +211,13 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(0, 0);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(532, 376);
+            this.tabControl1.Size = new System.Drawing.Size(532, 417);
             this.tabControl1.TabIndex = 7;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.GuidePage_Selected);
             // 
             // AnswersPage
             // 
+            this.AnswersPage.Controls.Add(this.splitContainer2);
             this.AnswersPage.Controls.Add(this.label6);
             this.AnswersPage.Controls.Add(this.ClearUuIdTextButton);
             this.AnswersPage.Controls.Add(this.label2);
@@ -188,10 +229,68 @@
             this.AnswersPage.Location = new System.Drawing.Point(4, 25);
             this.AnswersPage.Name = "AnswersPage";
             this.AnswersPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AnswersPage.Size = new System.Drawing.Size(524, 347);
+            this.AnswersPage.Size = new System.Drawing.Size(524, 388);
             this.AnswersPage.TabIndex = 0;
             this.AnswersPage.Text = "Поиск ответов";
             this.AnswersPage.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer2.Location = new System.Drawing.Point(6, 81);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.TestInfoButton);
+            this.splitContainer2.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.TestTimeLeftText);
+            this.splitContainer2.Panel2.Controls.Add(this.label13);
+            this.splitContainer2.Panel2.Enabled = false;
+            this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.splitContainer2.Size = new System.Drawing.Size(510, 41);
+            this.splitContainer2.SplitterDistance = 198;
+            this.splitContainer2.TabIndex = 9;
+            // 
+            // TestInfoButton
+            // 
+            this.TestInfoButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TestInfoButton.Enabled = false;
+            this.TestInfoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.TestInfoButton.Location = new System.Drawing.Point(0, 0);
+            this.TestInfoButton.Name = "TestInfoButton";
+            this.TestInfoButton.Size = new System.Drawing.Size(198, 41);
+            this.TestInfoButton.TabIndex = 10;
+            this.TestInfoButton.Text = "Про тест";
+            this.TestInfoButton.UseVisualStyleBackColor = true;
+            this.TestInfoButton.Click += new System.EventHandler(this.TestInfoButton_Click);
+            // 
+            // TestTimeLeftText
+            // 
+            this.TestTimeLeftText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.TestTimeLeftText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TestTimeLeftText.Location = new System.Drawing.Point(196, 8);
+            this.TestTimeLeftText.Name = "TestTimeLeftText";
+            this.TestTimeLeftText.Size = new System.Drawing.Size(109, 25);
+            this.TestTimeLeftText.TabIndex = 11;
+            this.TestTimeLeftText.Text = "00:00:00";
+            this.TestTimeLeftText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(3, 8);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(199, 25);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "Ограничение теста:";
             // 
             // label6
             // 
@@ -218,7 +317,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(255, 90);
+            this.label2.Location = new System.Drawing.Point(255, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(183, 25);
             this.label2.TabIndex = 7;
@@ -239,7 +338,7 @@
             this.GuidePage.Location = new System.Drawing.Point(4, 25);
             this.GuidePage.Name = "GuidePage";
             this.GuidePage.Padding = new System.Windows.Forms.Padding(3);
-            this.GuidePage.Size = new System.Drawing.Size(524, 347);
+            this.GuidePage.Size = new System.Drawing.Size(524, 388);
             this.GuidePage.TabIndex = 1;
             this.GuidePage.Text = "Как пользоваться";
             this.GuidePage.UseVisualStyleBackColor = true;
@@ -347,45 +446,20 @@
             this.JoinNaurokLabel.Text = "naurok.com.ua/test/join";
             this.JoinNaurokLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.JoinNaurokLabel_LinkClicked);
             // 
-            // splitContainer2
+            // TestTimer
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.OpenTestButton);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.StopButton);
-            this.splitContainer2.Size = new System.Drawing.Size(326, 41);
-            this.splitContainer2.SplitterDistance = 188;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // OpenTestButton
-            // 
-            this.OpenTestButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OpenTestButton.Enabled = false;
-            this.OpenTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.OpenTestButton.Location = new System.Drawing.Point(0, 0);
-            this.OpenTestButton.Name = "OpenTestButton";
-            this.OpenTestButton.Size = new System.Drawing.Size(188, 41);
-            this.OpenTestButton.TabIndex = 4;
-            this.OpenTestButton.Text = "Открыть тест";
-            this.OpenTestButton.UseVisualStyleBackColor = true;
-            this.OpenTestButton.Click += new System.EventHandler(this.OpenTestButton_Click);
+            this.TestTimer.Interval = 500;
+            this.TestTimer.Tick += new System.EventHandler(this.TestTimer_Tick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 376);
+            this.ClientSize = new System.Drawing.Size(532, 417);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(790, 650);
-            this.MinimumSize = new System.Drawing.Size(550, 423);
+            this.MinimumSize = new System.Drawing.Size(550, 464);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "НаОтвет";
@@ -397,16 +471,21 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LogoImage)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.AnswersPage.ResumeLayout(false);
             this.AnswersPage.PerformLayout();
-            this.GuidePage.ResumeLayout(false);
-            this.GuidePage.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.GuidePage.ResumeLayout(false);
+            this.GuidePage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -436,8 +515,13 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button OpenTestButton;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Label TestTimeLeftText;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.Button TestInfoButton;
+        private System.Windows.Forms.Timer TestTimer;
     }
 }
 

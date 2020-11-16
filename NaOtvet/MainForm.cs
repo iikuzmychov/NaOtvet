@@ -5,11 +5,12 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using NaOtvet.ApiClient;
+using NaOtvet.Api.Client;
 using NaOtvet.Core;
 using System.Threading.Tasks;
 using NaUrokApiClient;
 using System.Media;
+using NaOtvet.Api.Models;
 
 namespace NaOtvet
 {
@@ -67,13 +68,12 @@ namespace NaOtvet
         private void MainForm_Shown(object sender, EventArgs e)
         {
             loadingForm.Invoke(new Action(loadingForm.Close));
+            TopMost = false;
 
             if (HelpClass.IsUserAdministrator() == false)
                 MessageBox.Show("Если вы хотите, что бы программа работала быстрее, можете запустить её с правами администратора. Ей будет задан максимальный приоритет.", "Скорость работы", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
-
-            TopMost = false;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -101,15 +101,16 @@ namespace NaOtvet
             StartButton.Enabled         = false;
             ClearUuIdTextButton.Enabled = false;
             StopButton.Enabled          = true;
+            TestInfoButton.Enabled      = true;
 
             try
             {
                 if (finderSystem is null)
                 {
                     finderSystem = new FinderSystem(client, UuIdText.Text, threadsCount, finderIterationsCount);
-                    finderSystem.OnNewDocument += FinderSystem_OnNewDocument;
-                    finderSystem.OnDocumentIsFound += FinderSystem_OnDocumentIsFound;
-                    finderSystem.OnError += FinderSystem_OnError;
+                    finderSystem.OnNewDocument      += FinderSystem_OnNewDocument;
+                    finderSystem.OnDocumentIsFound  += FinderSystem_OnDocumentIsFound;
+                    finderSystem.OnError            += FinderSystem_OnError;
 
                     finderSystem.Start();
                 }
@@ -121,6 +122,14 @@ namespace NaOtvet
             catch (Exception exception)
             {
                 OnFatalError(exception);
+            }
+
+            var testSession = finderSystem.GetTestSession();
+
+            if (testSession != null && testSession.Duration.HasValue)
+            {                
+                splitContainer2.Panel2.Enabled = true;
+                TestTimer.Start();
             }
         }
 
@@ -137,11 +146,29 @@ namespace NaOtvet
             Process.Start("https://naurok.com.ua/test/testing/" + UuIdText.Text);
         }
 
+        private void TestInfoButton_Click(object sender, EventArgs e)
+        {
+            new TestInfoForm(finderSystem.GetTestSession()).ShowDialog();
+        }
+
         private void JoinNaurokLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://naurok.com.ua/test/join");
         }
 
+        private void ClearUuIdTextButton_Click(object sender, EventArgs e)
+        {
+            UuIdText.Text = string.Empty;
+            UuIdText.BackColor = Color.FromKnownColor(KnownColor.Control);
+            UuIdText.Enabled = true;
+        }
+
+        private void LogoImage_Click(object sender, EventArgs e)
+        {
+            Process.Start(youtubeChannelUrl);
+        }
+
+        
         private void UuIdText_TextChanged(object sender, EventArgs e)
         {
             var textBox = (TextBox)sender;
@@ -153,6 +180,7 @@ namespace NaOtvet
             if (textBox.Text == string.Empty && uuIdOnlyRegex.IsMatch(textBox.Text) == false)
             {
                 OpenTestButton.Enabled = false;
+                TestInfoButton.Enabled = false;
                 return;
             }
 
@@ -170,20 +198,10 @@ namespace NaOtvet
             {
                 textBox.Text        = string.Empty;
                 textBox.BackColor   = Color.Red;
+
                 OpenTestButton.Enabled = false;
+                TestInfoButton.Enabled = false;
             }
-        }
-
-        private void ClearUuIdTextButton_Click(object sender, EventArgs e)
-        {
-            UuIdText.Text = string.Empty;
-            UuIdText.BackColor = Color.FromKnownColor(KnownColor.Control);
-            UuIdText.Enabled = true;
-        }
-
-        private void LogoImage_Click(object sender, EventArgs e)
-        {
-            Process.Start(youtubeChannelUrl);
         }
 
         private void GuidePage_Selected(object sender, TabControlEventArgs e)
@@ -199,7 +217,7 @@ namespace NaOtvet
         
         private bool IsLastAppVersion()
         {
-            var lastVersion = NaOtvetApiClient.GetLastApplicationVersion().Version;
+            var lastVersion = NaOtvetClient.GetLastApplicationVersion().Version;
             var currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             return int.Parse(currentVersion.Replace(".", "")) >= int.Parse(lastVersion.Replace(".", ""));
@@ -207,10 +225,10 @@ namespace NaOtvet
 
         private void LoadRemoteData()
         {
-            var webLinks = NaOtvetApiClient.GetWebLinks(new string[] { "youtubeTutorial", "youtubeChannel" });
+            var webLinks = NaOtvetClient.GetWebLinks(new string[] { "youtubeTutorial", "youtubeChannel" });
             youtubeTutorialUrl = webLinks.First(webLink => webLink.Name == "youtubeTutorial").Url;
             youtubeChannelUrl = webLinks.First(webLink => webLink.Name == "youtubeChannel").Url;
-            naurokAccount = NaOtvetApiClient.GetWebSiteAccount("https://naurok.com.ua");
+            naurokAccount = NaOtvetClient.GetWebSiteAccount("https://naurok.com.ua");
         }
 
 
@@ -218,10 +236,16 @@ namespace NaOtvet
         {
             finderSystem?.Stop();
             stopwatch.Stop();
-                        
-            StopButton.Enabled          = false;
-            ClearUuIdTextButton.Enabled = true;
-            StartButton.Enabled         = true;            
+            TestTimer.Stop();
+            
+            TestInfoButton.Enabled          = false;
+            StopButton.Enabled              = false;
+            splitContainer2.Panel2.Enabled  = false;
+            ClearUuIdTextButton.Enabled     = true;
+            StartButton.Enabled             = true;
+
+            TestTimeLeftText.Text = "00:00:00";
+            TestTimeLeftText.ForeColor = Color.Black;
         }
 
         private void Log(string text)
@@ -268,6 +292,28 @@ namespace NaOtvet
             catch
             {
                 ThrowFatalError("Возникла неизвестная ошибка. Возможно, тест был завершён/не существует. Текст ошибки: " + exception.Message);                    
+            }
+        }
+
+        private void TestTimer_Tick(object sender, EventArgs args)
+        {
+            var session = finderSystem.GetTestSession();
+
+            if (DateTime.Now <= session.EndDateTime)
+            {
+                var timeLeft = session.EndDateTime.Value - DateTime.Now;
+                TestTimeLeftText.Text = timeLeft.ToString(@"hh\:mm\:ss");
+
+                if (timeLeft.TotalMinutes <= 5 && session.Duration.Value.TotalMinutes >= 5)
+                {
+                    TestTimeLeftText.ForeColor = Color.Red;
+                }
+            }
+            else
+            {
+                splitContainer2.Panel2.Enabled = false;
+                TestTimer.Stop();
+                MessageBox.Show("Время прохождения теста истекло. Советуем подождать, пока программа найдёт ответы, что бы сохранить их для других учеников.", "Тест завершён", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

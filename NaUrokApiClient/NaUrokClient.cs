@@ -31,11 +31,18 @@ namespace NaUrokApiClient
             return sessionId;
         }
 
+        public TestSession GetTestSession(int sessionId)
+        {
+            var sessionJson = requestsSender.GetSession(sessionId).Content;
+            var session = ResponsesParser.ParseTestSession(sessionJson);
+
+            return session;
+        }
+
         public TestSession GetTestSession(string sessionUuId)
         {
-            int sessionId   = GetTestSessionId(sessionUuId);
-            var sessionJson = requestsSender.GetSession(sessionId).Content;
-            var session     = ResponsesParser.ParseTestSession(sessionJson);
+            int sessionId = GetTestSessionId(sessionUuId);
+            var session = GetTestSession(sessionId);
 
             return session;
         }
@@ -87,6 +94,17 @@ namespace NaUrokApiClient
             }
 
             return testsId.ToArray();
+        }
+
+        public static string GetProfileUrl(int profileId)
+        {
+            return "https://naurok.com.ua/profile/" + profileId;
+        }
+
+        public bool IsCorrectTestDocument(TestSession testSession, int testDocumentId, out FlashCard[] flashCards)
+        {
+            flashCards = GetFlashCards(testDocumentId);
+            return testSession.IsCorrectFlashCards(flashCards);
         }
     }
 }
