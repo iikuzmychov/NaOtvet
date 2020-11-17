@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using System;
 using System.Net;
 
 namespace NaUrokApiClient
@@ -56,6 +57,15 @@ namespace NaUrokApiClient
         public IRestResponse GetProfileTestsDocuments(int profileId, int page)
         {
             var request = new RestRequest($"/profile/{profileId}?storinka={page}");
+            return client.Get(request);
+        }
+        
+        public IRestResponse FindTestsDocumentsWithSameQuestions(string questionText)
+        {
+            if (questionText is null)
+                throw new ArgumentNullException();
+
+            var request = new RestRequest($"/api/test/questions/search?q={questionText}");
             return client.Get(request);
         }
 

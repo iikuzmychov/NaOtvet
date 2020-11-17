@@ -106,5 +106,15 @@ namespace NaUrokApiClient
             flashCards = GetFlashCards(testDocumentId);
             return testSession.IsCorrectFlashCards(flashCards);
         }
+
+        public TestDocument[] GetTestsDocumentsWithSameQuestions(string questionText)
+        {
+            if (questionText is null)
+                throw new ArgumentNullException();
+
+            var documentsJson = requestsSender.FindTestsDocumentsWithSameQuestions(questionText).Content;
+
+            return ResponsesParser.ParseTestsDocuments(documentsJson);
+        }
     }
 }

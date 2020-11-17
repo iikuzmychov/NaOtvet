@@ -9,12 +9,17 @@ namespace NaUrokApiClient
 {
     static class ResponsesParser
     {
-        private static QuestionOption ParseQuestionOption(JToken json)
+        private static QuestionOption ParseQuestionOption(JToken json, out bool? isCorrect)
         {
             var option = new QuestionOption();
 
             option.Id = json["id"].Value<int>();
             option.Content = json["value"].ToString();
+
+            if (json["correct"] is null)
+                isCorrect = null;
+            else
+                isCorrect = Convert.ToBoolean(json["correct"].Value<int>());
 
             return option;
         }
@@ -44,10 +49,13 @@ namespace NaUrokApiClient
 
             foreach (var optionJson in json["options"])
             {
-                var option = ParseQuestionOption(optionJson);
+                var option = ParseQuestionOption(optionJson, out bool? isCorrect);
                 option.Question = question;
 
                 question.Options.Add(option);
+
+                if (isCorrect.HasValue && isCorrect.Value)
+                    question.Answers.Add(option);
             }
 
             return question;
@@ -194,6 +202,49 @@ namespace NaUrokApiClient
             document.LoadHtml(html);
 
             return IsLastProfilePage(document);
+        }
+
+
+        private static TestDocument ParseTestDocumentId(JToken json)
+        {
+            var document = new TestDocument();
+            document.Id         = json["id"].Value<int>();
+            document.Slug       = json["slug"].ToString();
+            document.Name       = json["name"].ToString();
+            document.Author     = json["author"].ToString();
+            document.Subject    = json["subject"].ToString();
+            document.Grade      = json["grade"].ToString();
+
+            foreach (var questionJson in json["questions"])
+            {
+                var question = ParseTestQuestion(questionJson);
+                document.Questions.Add(question);
+            }
+
+            return document;
+        }
+
+        private static TestDocument[] ParseTestsDocumentsId(JArray json)
+        {
+            var documents = new List<TestDocument>();
+
+            foreach (var document in json)
+            {
+                var id = ParseTestDocumentId(document);
+                documents.Add(id);
+            }
+
+            return documents.ToArray();
+        }
+
+        public static TestDocument ParseTestDocument(string data)
+        {
+            return ParseTestDocumentId(JObject.Parse(data));
+        }
+
+        public static TestDocument[] ParseTestsDocuments(string data)
+        {
+            return ParseTestsDocumentsId(JArray.Parse(data));
         }
     }
 }

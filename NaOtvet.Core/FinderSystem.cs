@@ -144,7 +144,8 @@ namespace NaOtvet.Core
             IsStoped = false;
 
             Task.Run(() => CheckCreatorProfileTests(testSession));
-            Task.Run(() => CheckSolvedSessions(testSession));
+            Task.Run(() => CheckSolvedSessions(testSession));            
+            Task.Run(() => CheckSameQuestions(testSession));            
         }
 
         public void Stop()
@@ -189,6 +190,33 @@ namespace NaOtvet.Core
             {
                 CheckedDocumentsCount++;
                 Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(solvedSession.TestDocumentId, flashCards, testSession));
+            }
+        }
+
+        private void CheckSameQuestions(TestSession session)
+        {
+            foreach (var currentQuestion in session.Questions)
+            {
+                var documents = client.GetTestsDocumentsWithSameQuestions(currentQuestion.Content);
+                var documentsWithCurrentQuestion = documents
+                    .Where(document => 
+                        document.Questions
+                        .Where(question => question.Id == currentQuestion.Id)
+                        .Count() > 0
+                        );
+
+                if (documentsWithCurrentQuestion.Count() == 0)
+                    continue;
+
+                foreach (var document in documentsWithCurrentQuestion)
+                {
+                    if (client.IsCorrectTestDocument(testSession, document.Id, out FlashCard[] flashCards))
+                    {
+                        CheckedDocumentsCount++;
+                        Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, flashCards, testSession));
+                        break;
+                    }
+                }                
             }
         }
 

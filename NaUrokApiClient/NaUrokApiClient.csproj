@@ -54,6 +54,7 @@
     <Compile Include="NaUrokClient.cs" />
     <Compile Include="Test\FlashCard.cs" />
     <Compile Include="Test\QuestionOption.cs" />
+    <Compile Include="Test\TestDocument.cs" />
     <Compile Include="Test\TestQuestion.cs" />
     <Compile Include="Test\TestSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
