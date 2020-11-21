@@ -82,6 +82,12 @@
       <DependentUpon>AnswersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HelpClass.cs" />
+    <Compile Include="ImageViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageViewForm.Designer.cs">
+      <DependentUpon>ImageViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="AnswersForm.resx">
       <DependentUpon>AnswersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageViewForm.resx">
+      <DependentUpon>ImageViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>

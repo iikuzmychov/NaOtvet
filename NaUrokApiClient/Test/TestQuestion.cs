@@ -15,7 +15,8 @@ namespace NaUrokApiClient
     {
         public int Id { get; set; }
         public int Points { get; set; }
-        public string Content { get; set; }
+        public string HtmlText { get; set; }
+        public string ImageUrl { get; set; }
         public QuestionType Type { get; set; }
         public List<QuestionOption> Options { get; private set; }
         public List<QuestionOption> Answers { get; private set; }
@@ -31,7 +32,7 @@ namespace NaUrokApiClient
             var question = new TestQuestion();
             question.Id         = Id;
             question.Points     = Points;
-            question.Content    = Content;
+            question.HtmlText   = HtmlText;
             question.Type       = Type;
             question.Options    = Options.Select(option => (QuestionOption)option.Clone()).ToList();
             question.Answers    = Answers.Select(answer => (QuestionOption)answer.Clone()).ToList();
@@ -47,16 +48,26 @@ namespace NaUrokApiClient
 
         public bool IsCorrectFlashCard(FlashCard card)
         {
-            if (card.QuestionContent is null || card.QuestionContent != Content)
+            if (card.QuestionHtmlText != HtmlText)
                 return false;
 
-            var answers = card.AnswerContent
+            var answers = card.AnswerHtmlText
                 .Split(new string[] { "<div>", "</div>" }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var answer in answers)
             {
-                if (Options.Where(option => option.Content == answer).Count() != 1)
+                if (Options
+                    .Where(option =>
+                    {
+                        if (option.HtmlText != string.Empty)
+                            return option.HtmlText == answer;
+                        else
+                            return option.ImageUrl == card.AnswerImageUrl;
+                    })
+                    .Count() != 1)
+                {
                     return false;
+                }
             }
 
             return true;
@@ -68,10 +79,18 @@ namespace NaUrokApiClient
                 if (IsCorrectFlashCard(card) == false)
                     throw new ArgumentException();
 
-            var answers = card.AnswerContent
+            var answers = card.AnswerHtmlText
                 .Split(new string[] { "<div>", "</div>" }, StringSplitOptions.RemoveEmptyEntries);
 
-            Answers = Options.Where(option => answers.Contains(option.Content)).ToList();
+            Answers = Options
+                .Where(option =>
+                {
+                    if (option.HtmlText != string.Empty)
+                        return answers.Contains(option.HtmlText);
+                    else
+                        return option.ImageUrl == card.AnswerImageUrl;
+                })
+                .ToList();
         }
     }
 }

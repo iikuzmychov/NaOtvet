@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ApplicationVersionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SolvedTestsSessionsController.cs" />
+    <Compile Include="Controllers\DownloadsController.cs" />
     <Compile Include="Controllers\WebLinksController.cs" />
     <Compile Include="Controllers\WebSitesAccountsController.cs" />
     <Compile Include="Global.asax.cs">

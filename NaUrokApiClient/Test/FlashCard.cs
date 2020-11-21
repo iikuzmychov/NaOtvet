@@ -3,7 +3,9 @@
     public class FlashCard
     {
         public int Id { get; set; }
-        public string QuestionContent { get; set; }
-        public string AnswerContent { get; set; }
+        public string QuestionHtmlText { get; set; }
+        public string QuestionImageUrl { get; set; }
+        public string AnswerHtmlText { get; set; }
+        public string AnswerImageUrl { get; set; }
     }
 }

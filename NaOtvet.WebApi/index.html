@@ -86,7 +86,7 @@
             <ul class="meta list-inline">
                 <li>Автор: <a href="https://www.youtube.com/c/kuzcode" target="_blank">KuzCode</a></li>
                 <li>Версия: <text id="version"></text></li>
-                <li>Дата публикации: <text id="publishDate"></text></li>
+                <!--<li>Дата публикации: <text id="publishDate"></text></li>-->
                 <li>
                     Кол-во скачиваний: <text id="downloadsCount"></text>
                     <a style="cursor: pointer" onclick="updateVersionInfo()"><i class="fas fa-sync-alt"></i></a>
@@ -201,22 +201,32 @@
         function updateVersionInfo() {
             var loadingText = "загрузка...";
             document.getElementById("downloadsCount").innerText = loadingText;
-            document.getElementById("publishDate").innerText    = loadingText;
+            //document.getElementById("publishDate").innerText    = loadingText;
             document.getElementById("version").innerText        = loadingText;
 
-            var xhr = new XMLHttpRequest();
+            var versionRequest = new XMLHttpRequest();
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    var json = JSON.parse(xhr.response);
-                    document.getElementById("downloadsCount").innerText = json["downloadsCount"].toLocaleString();
-                    document.getElementById("publishDate").innerText    = new Date(json["publishDate"]).toLocaleDateString("ru-RU");
+            versionRequest.onreadystatechange = function () {
+                if (versionRequest.readyState === 4) {
+                    var json = JSON.parse(versionRequest.response);
+                    //document.getElementById("publishDate").innerText    = new Date(json["publishDate"]).toLocaleDateString("ru-RU");
                     document.getElementById("version").innerText        = json["version"];
                 }
             };
 
-            xhr.open("GET", "/api/application/lastVersion");
-            xhr.send();
+            versionRequest.open("GET", "/api/application/lastVersion");
+            versionRequest.send();
+
+            var totalDownloadsRequest = new XMLHttpRequest();
+
+            totalDownloadsRequest.onreadystatechange = function () {
+                if (totalDownloadsRequest.readyState === 4) {
+                    document.getElementById("downloadsCount").innerText = parseInt(totalDownloadsRequest.response);
+                }
+            };
+
+            totalDownloadsRequest.open("GET", "/api/application/downloads");
+            totalDownloadsRequest.send();
         }
 
         function downloadLastVersion() {

@@ -13,8 +13,11 @@ namespace NaUrokApiClient
         {
             var option = new QuestionOption();
 
-            option.Id = json["id"].Value<int>();
-            option.Content = json["value"].ToString();
+            option.Id       = json["id"].Value<int>();
+            option.HtmlText = json["value"].ToString();
+
+            if (json["image"] != null && json["image"].Type != JTokenType.Null)
+                option.ImageUrl = json["image"].ToString();
 
             if (json["correct"] is null)
                 isCorrect = null;
@@ -28,9 +31,12 @@ namespace NaUrokApiClient
         {
             var question = new TestQuestion();
 
-            question.Id       = json["id"].Value<int>();
-            question.Content  = json["content"].ToString();
-            question.Points   = json["point"].Value<int>();
+            question.Id         = json["id"].Value<int>();
+            question.HtmlText   = json["content"].ToString();
+            question.Points     = json["point"].Value<int>();
+            
+            if (json["image"] != null && json["image"].Type != JTokenType.Null)
+                question.ImageUrl = json["image"].ToString();
 
             switch (json["type"].ToString())
             {
@@ -110,8 +116,10 @@ namespace NaUrokApiClient
             var flashCard = new FlashCard();
 
             flashCard.Id                = json["id"].Value<int>();
-            flashCard.QuestionContent   = json["question"]["text"].ToString();
-            flashCard.AnswerContent     = json["answer"]?["text"].ToString();
+            flashCard.QuestionHtmlText  = json["question"]["text"].ToString();
+            flashCard.QuestionImageUrl  = json["question"]["image"]?.ToString();
+            flashCard.AnswerHtmlText    = json["answer"]?["text"].ToString();
+            flashCard.AnswerImageUrl    = json["answer"]?["image"]?.ToString();
 
             return flashCard;
         }

@@ -89,7 +89,7 @@ namespace NaOtvet.Core
 
                     if (isCorrectTestDocument)
                     {
-                        OnTestDocumentIsFound.Invoke(this, new OnTestDocumentIsFoundArgs(testDocumentId, flashCards, TestSession));
+                        OnTestDocumentIsFound.Invoke(this, new OnTestDocumentIsFoundArgs(testDocumentId, TestSession, flashCards));
                         Stop();
                         break;
                     }

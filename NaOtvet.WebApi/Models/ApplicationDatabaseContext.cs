@@ -6,6 +6,7 @@ namespace NaOtvet.WebApi.Models
     public class ApplicationDatabaseContext : DbContext
     {
         public DbSet<ApplicationVersion> ApplicationVersions { get; set; }
+        public DbSet<Download> Downloads { get; set; }
         public DbSet<WebLink> WebLinks { get; set; }
         public DbSet<WebSiteAccount> WebSitesAccounts { get; set; }
         public DbSet<SolvedTestSession> SolvedTestsSessions { get; set; }

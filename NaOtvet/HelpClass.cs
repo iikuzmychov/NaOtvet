@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Security.Principal;
 
 namespace NaOtvet
@@ -57,6 +59,16 @@ namespace NaOtvet
             catch
             {
                 return false;
+            }
+        }
+
+        public static Image DownloadImage(string url)
+        {
+            byte[] data = new WebClient().DownloadData(url);
+
+            using (var memoryStream = new MemoryStream(data))
+            {
+                return Image.FromStream(memoryStream);
             }
         }
     }

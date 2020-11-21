@@ -1,5 +1,6 @@
 ﻿using NaUrokApiClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,17 +12,20 @@ namespace NaOtvet
 {
     public partial class AnswersForm : Form
     {
-        private TestSession testSession;
+        private TestQuestion[] testQuestions;
 
-        public AnswersForm(TestSession testSession)
+        public AnswersForm(TestQuestion[] questions)
         {
+            if (questions is null)
+                throw new ArgumentNullException();
+            
+            testQuestions = questions;
             InitializeComponent();
-            this.testSession = testSession;
         }
 
         private void AnswersForm_Load(object sender, EventArgs e)
         {
-            GenerateQuestions();
+            GenerateControlsForQuestions();
         }
 
         private void AnswersForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -35,7 +39,7 @@ namespace NaOtvet
 
         private int GetMaxPointsCount()
         {
-            return testSession.Questions.Select(question => question.Points).Sum();
+            return testQuestions.Select(question => question.Points).Sum();
         }
 
         private string HtmlToText(string html)
@@ -43,54 +47,104 @@ namespace NaOtvet
             return Regex.Replace(html, @"<[^>]*>", "");
         }
 
-        private string GenerateText(TestQuestion question)
+        private string GenerateText(TestQuestion question, out string questionImageUrl, out string[] answersImagesUrls)
         {
             var stringBuilder = new StringBuilder();
             var maxPointsCount = GetMaxPointsCount();
-            var questionText = HtmlToText(question.Content);
+            var questionText = HtmlToText(question.HtmlText);
             var questionPoints12System = Math.Round((double)question.Points * 12 / maxPointsCount, 1);
 
-            stringBuilder.AppendLine("ВОПРОС: " + questionText);
+            stringBuilder.Append("ВОПРОС: ");
+
+            if (question.ImageUrl != null)
+            {
+                stringBuilder.Append($"(рис.0) ");
+                questionImageUrl = question.ImageUrl;
+            }
+            else
+            {
+                questionImageUrl = null;
+            }
+
+            stringBuilder.AppendLine(questionText);
             stringBuilder.AppendLine($"БАЛЛЫ ЗА ВОПРОС: {questionPoints12System}б.");
 
-            if (question.Answers.Count > 1)
-                stringBuilder.AppendLine("ОТВЕТЫ: ");
-            else
-                stringBuilder.Append("ОТВЕТ: ");
-
-
-            for (int i = 0; i < question.Answers.Count; i++)
+            if (question.Answers.Count > 0)
             {
-                string answerText;
+                bool maybeIncorrectAnswer = false;
 
-                try
+                if (question.Type == QuestionType.ManyAnswers &&
+                    question.Options
+                        .Where(answer => answer.ImageUrl != null)
+                        .Count() > 1)
                 {
-                    answerText = HtmlToText(question.Answers[i].Content);
-                }
-                catch (Exception)
-                {
-                    answerText = "Ответ не найден, возможно, это потому, что ответ - картинка";
+                    maybeIncorrectAnswer = true;
                 }
 
                 if (question.Answers.Count > 1)
-                {
-                    if (i < question.Answers.Count - 1)
-                        stringBuilder.AppendLine($"  {i + 1}. {answerText}");
-                    else
-                        stringBuilder.Append($"  {i + 1}. {answerText}");
-                }
+                    stringBuilder.Append("ОТВЕТЫ: ");
                 else
+                    stringBuilder.Append("ОТВЕТ: ");
+
+                if (maybeIncorrectAnswer)
+                    stringBuilder.Append("[возможно, это НЕ ПОЛНЫЙ ОТВЕТ] ");
+
+                if (question.Answers.Count > 1)
+                    stringBuilder.AppendLine();
+
+                var answersImagesUrlsList = new List<string>();
+
+                for (int i = 0; i < question.Answers.Count; i++)
                 {
-                    stringBuilder.Append(answerText);
+                    string answerText = "";
+
+                    if (question.Answers[i].ImageUrl != null)
+                    {
+                        answerText = $"(рис.{i + 1}) ";
+                        answersImagesUrlsList.Add(question.Answers[i].ImageUrl);
+                    }
+                    else
+                    {
+                        answersImagesUrlsList.Add(null);
+                    }
+
+                    if (question.Answers[i].HtmlText != null && question.Answers[i].HtmlText != string.Empty)
+                    {
+                        answerText = HtmlToText(question.Answers[i].HtmlText);
+                    }
+                    else if (question.Answers[i].ImageUrl == null)
+                    {
+                        answerText = "невозможно найти ответ";
+                    }
+
+                    if (question.Answers.Count > 1)
+                    {
+                        stringBuilder.Append($"  {i + 1}. {answerText}");
+
+                        if (i < question.Answers.Count - 1)
+                            stringBuilder.AppendLine();
+                    }
+                    else
+                    {
+                        stringBuilder.Append(answerText);
+                    }
                 }
+
+                answersImagesUrls = answersImagesUrlsList.ToArray();
+            }
+            else
+            {
+                stringBuilder.Append("НЕ УДАЛОСЬ НАЙТИ ОТВЕТ");
+                answersImagesUrls = null;
             }
 
             return stringBuilder.ToString();
         }
 
-        private (TextBox, CheckBox) GenerateQuestion(int yLocation, TestQuestion question)
+        private (TextBox, CheckBox) GenerateControlForQuestion(int yLocation, TestQuestion question)
         {
-            var font = new Font(FontFamily.GenericSansSerif, 12);
+            var defaultFont = new Font(FontFamily.GenericSansSerif, 12);
+            var littleFont = new Font(FontFamily.GenericSansSerif, 10);
 
             var questionTextBox = new TextBox
             {
@@ -103,34 +157,87 @@ namespace NaOtvet
                 ReadOnly    = true,
                 TabStop     = false,
                 BackColor   = Color.FromKnownColor(KnownColor.Window),
-                Font        = font
+                Font        = defaultFont
             };
 
             questionTextBox.TextChanged += QuestionTextBox_TextChanged;
-            questionTextBox.Text = GenerateText(question);
+            questionTextBox.Text = GenerateText(question, out string questionImageUrl, out string[] answersImagesUrls);
+            Controls.Add(questionTextBox);
 
             var questionCheckBox = new CheckBox
             {
                 Location    = new Point(633, yLocation),
                 AutoSize    = true,                
-                Font        = font,
+                Font        = defaultFont,
                 Text        = "Вопрос отвечен",
             };
 
             SimpleToolTip.SetToolTip(questionCheckBox, "Нажмите, что бы скрыть вопрос");
             questionCheckBox.CheckedChanged += (sender, args) => QuestionTextBox_CheckedChanged(sender, questionTextBox);
-
-            Controls.Add(questionTextBox);
             Controls.Add(questionCheckBox);
+
+            LinkLabel questionImageLinkedText = null;
+
+            if (questionImageUrl != null)
+            {
+                questionImageLinkedText = new LinkLabel
+                {
+                    Location    = new Point(questionCheckBox.Location.X, questionCheckBox.Location.Y + questionCheckBox.Size.Height + 3),
+                    AutoSize    = true,
+                    Font        = littleFont,
+                    Text        = "рис.0"
+                };
+
+                questionImageLinkedText.Click += (sender, args) => new ImageViewForm(questionImageUrl, questionImageLinkedText.Text).ShowDialog();
+                Controls.Add(questionImageLinkedText);
+            }
+
+            if (answersImagesUrls != null)
+            {
+                int answerStartYLocation;
+                LinkLabel lastAnswerLabel = null;
+
+                if (questionImageLinkedText != null)
+                    answerStartYLocation = questionImageLinkedText.Location.Y + questionImageLinkedText.Size.Height + 3;
+                else
+                    answerStartYLocation = questionCheckBox.Location.Y + questionCheckBox.Size.Height + 3;
+
+                for (int i = 0; i < answersImagesUrls.Length; i++)
+                {
+                    if (answersImagesUrls[i] is null)
+                        continue;
+
+                    int answerYLocation;
+                    
+                    if (lastAnswerLabel != null)
+                        answerYLocation = answerStartYLocation + lastAnswerLabel.Size.Height + 3;
+                    else
+                        answerYLocation = answerStartYLocation;
+
+                    var answerImageLinkedText = new LinkLabel
+                    {
+                        Location    = new Point(questionCheckBox.Location.X, answerYLocation),
+                        AutoSize    = true,
+                        Font        = littleFont,
+                        Text        = $"рис.{i + 1}"
+                    };
+
+                    var imageUrl = answersImagesUrls[i];
+                    answerImageLinkedText.Click += (sender, args) => new ImageViewForm(imageUrl, answerImageLinkedText.Text).ShowDialog();
+                    Controls.Add(answerImageLinkedText);
+
+                    lastAnswerLabel = answerImageLinkedText;
+                }
+            }
 
             return (questionTextBox, questionCheckBox);
         }
 
-        private void GenerateQuestions()
+        private void GenerateControlsForQuestions()
         {
             TextBox lastQuestionTextBox = null;
 
-            for (int i = 0; i < testSession.Questions.Count; i++)
+            for (int i = 0; i < testQuestions.Length; i++)
             {
                 int textBoxYLocation;
 
@@ -139,7 +246,7 @@ namespace NaOtvet
                 else
                     textBoxYLocation = lastQuestionTextBox.Location.Y + lastQuestionTextBox.Size.Height + 3;
 
-                lastQuestionTextBox = GenerateQuestion(textBoxYLocation, testSession.Questions[i]).Item1;
+                lastQuestionTextBox = GenerateControlForQuestion(textBoxYLocation, testQuestions[i]).Item1;
             }
 
             if (lastQuestionTextBox.Location.Y + lastQuestionTextBox.Size.Height < this.Size.Height)
@@ -162,9 +269,15 @@ namespace NaOtvet
             var checkBox = sender as CheckBox;
 
             if (checkBox.Checked)
+            {
+                questionTextBox.Enabled = false;
                 questionTextBox.BackColor = Color.Black;
+            }
             else
+            {
+                questionTextBox.Enabled = true;
                 questionTextBox.BackColor = Color.FromKnownColor(KnownColor.Window);
+            }
         }
     }
 }

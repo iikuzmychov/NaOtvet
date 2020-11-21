@@ -5,14 +5,15 @@ namespace NaUrokApiClient
     public class QuestionOption : ICloneable
     {
         public int Id { get; set; }
-        public string Content { get; set; }
+        public string HtmlText { get; set; }
+        public string ImageUrl { get; set; }
         public TestQuestion Question { get; set; }
 
         public object Clone()
         {
             var option = new QuestionOption();
             option.Id       = option.Id;
-            option.Content  = option.Content;
+            option.HtmlText = option.HtmlText;
             option.Question = Question;
 
             return option;

@@ -24,7 +24,7 @@ namespace NaOtvet.WebApi.Controllers
 
         [Route("~/api/application/version")]
         [HttpPost]
-        public ApplicationVersion GetValue([FromBody] string version)
+        public ApplicationVersion GetVersion([FromBody] string version)
         {
             try
             {
@@ -36,32 +36,9 @@ namespace NaOtvet.WebApi.Controllers
             }
         }
 
-        private int NewDownload(ApplicationVersion version)
-        {
-            version.DownloadsCount++;
-            context.SaveChanges();
-
-            return version.DownloadsCount;
-        }
-
-        [Route("~/api/application/version/newDownload")]
-        [HttpPut]
-        public int NewDownload([FromBody] string version)
-        {
-            try
-            {
-                var applicationVersion = context.ApplicationVersions.First(appVersion => appVersion.Version == version);
-                return NewDownload(applicationVersion);
-            }
-            catch (Exception)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-        }
-
         [Route("~/api/application/lastVersion")]
         [HttpGet]
-        public ApplicationVersion LastVersion()
+        public ApplicationVersion GetLastVersion()
         {
             try
             {
@@ -73,14 +50,6 @@ namespace NaOtvet.WebApi.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-        }
-
-        [Route("~/api/application/lastVersion/newDownload")]
-        [HttpPut]
-        public int LastVesrsionNewDownload()
-        {
-            var lastVersion = LastVersion();
-            return NewDownload(lastVersion);
         }
     }
 }

@@ -345,7 +345,7 @@ namespace NaOtvet
                 Stop();                
                 SystemSounds.Asterisk.Play();
 
-                var answersForm = new AnswersForm(args.TestSession);
+                var answersForm = new AnswersForm(args.Questions);
                 answersForm.TopMost = true;
                 answersForm.Show();                
                 answersForm.TopMost = false;

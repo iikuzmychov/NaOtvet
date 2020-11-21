@@ -9,6 +9,7 @@ namespace NaOtvet.Api.Models
         [StringLength(20)]
         public string Version { get; set; }
         public int DownloadsCount { get; set; }
+        public int NewUsersDownloadsCount { get; set; }
         public DateTime PublishDate { get; set; }
     }
 }

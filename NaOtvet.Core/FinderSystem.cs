@@ -4,19 +4,22 @@ using NaUrokApiClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace NaOtvet.Core
 {
-    public class FinderSystem
+    public class FinderSystem : IDisposable
     {
         private const double magicConstant = 9.55;
         private NaUrokClient client;
         private List<TestDocumentFinder> testDocumentFinders;
         private TestSession testSession;
         private int startId;
+        private Task specialCasesTask;
+        private Task saveSessionTask;
 
-        public int ThreadsCount { get; private set; }        
+        public int ThreadsCount { get; private set; }
         public string TestSessionUuId { get; private set; }
         public int FinderIterationsCount { get; private set; }
         public bool IsStoped { get; private set; } = true;
@@ -36,9 +39,21 @@ namespace NaOtvet.Core
             testDocumentFinders = new List<TestDocumentFinder>();
             this.client = client;
 
-            ThreadsCount            = threadsCount;
-            FinderIterationsCount   = finderIterationsCount;
-            TestSessionUuId         = testSessionUuId;
+            ThreadsCount = threadsCount;
+            FinderIterationsCount = finderIterationsCount;
+            TestSessionUuId = testSessionUuId;
+        }
+
+        public void Dispose()
+        {
+            if (testDocumentFinders != null)
+            {
+                foreach (var finder in testDocumentFinders)
+                    finder.Dispose();
+            }
+
+            specialCasesTask.Dispose();
+            saveSessionTask.Dispose();
         }
 
         public TestSession GetTestSession()
@@ -69,10 +84,10 @@ namespace NaOtvet.Core
             {
                 int startIndex = i * FinderIterationsCount;
                 var finder = new TestDocumentFinder(client, testSession, startId, startIndex, FinderIterationsCount);
-                finder.OnNewTestDocument        += Finder_OnNewDocument;
-                finder.OnTestDocumentIsFound    += Finder_OnTestDocumentIsFound;
-                finder.OnError                  += Finder_OnError;
-                finder.OnEnd                    += Finder_OnEnd;
+                finder.OnNewTestDocument += Finder_OnNewDocument;
+                finder.OnTestDocumentIsFound += Finder_OnTestDocumentIsFound;
+                finder.OnError += Finder_OnError;
+                finder.OnEnd += Finder_OnEnd;
 
                 testDocumentFinders.Add(finder);
             }
@@ -82,7 +97,7 @@ namespace NaOtvet.Core
         private void Finder_OnNewDocument(object sender, OnNewTestDocumentArgs args)
         {
             CheckedDocumentsCount++;
-            OnNewDocument?.Invoke(this, args);            
+            OnNewDocument?.Invoke(this, args);
         }
 
         private void Finder_OnTestDocumentIsFound(object sender, OnTestDocumentIsFoundArgs args)
@@ -94,8 +109,9 @@ namespace NaOtvet.Core
             TestIsFound = true;
 
             Stop();
-            testSession.SetAnswers(args.FlashCards.ToArray());
-            Task.Run(() => SaveAnswers(testSession, args.DocumentId));
+
+            saveSessionTask = new Task(() => SaveSolvedSession(args.DocumentId));
+            saveSessionTask.Start();
 
             OnDocumentIsFound?.Invoke(this, args);
         }
@@ -122,12 +138,12 @@ namespace NaOtvet.Core
 
         public void Restart(string testSessionUuId)
         {
-            IsStoped                = false;
-            TestIsFound             = false;
-            CheckedDocumentsCount   = 0;
-            TestSessionUuId         = testSessionUuId;
-            testSession             = client.GetTestSession(testSessionUuId);
-            startId                 = GetStartTestDocumentId(testSession);
+            IsStoped = false;
+            TestIsFound = false;
+            CheckedDocumentsCount = 0;
+            TestSessionUuId = testSessionUuId;
+            testSession = client.GetTestSession(testSessionUuId);
+            startId = GetStartTestDocumentId(testSession);
 
             if (testSession.Questions.Count != testSession.TestQuestionsCount)
             {
@@ -143,9 +159,8 @@ namespace NaOtvet.Core
 
             IsStoped = false;
 
-            Task.Run(() => CheckCreatorProfileTests(testSession));
-            Task.Run(() => CheckSolvedSessions(testSession));            
-            Task.Run(() => CheckSameQuestions(testSession));            
+            specialCasesTask = new Task(CheckSpecialCases);
+            specialCasesTask.Start();
         }
 
         public void Stop()
@@ -159,76 +174,142 @@ namespace NaOtvet.Core
         }
 
 
-        private void CheckCreatorProfileTests(TestSession session)
+        private void CheckSpecialCases()
         {
-            if (session.CreatorId is null)
-                return;
-
-            var testsDocumentsId = client.GetProfilePublicTestsDocumentsId((int)session.CreatorId);
-
-            foreach (var testDocumentId in testsDocumentsId)
+            var specialCasesFunctions = new Func<bool>[]
             {
-                if (client.IsCorrectTestDocument(session, testDocumentId, out FlashCard[] flashCards))
-                {
-                    CheckedDocumentsCount++;
-                    Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(testDocumentId, flashCards, session));
-                }
+                CheckSolvedSessions,
+                CheckCreatorProfileTests,
+                CheckImagesUrls,
+                CheckSameQuestions,
+            };
+
+            foreach (var function in specialCasesFunctions)
+            {
+                var goodResult = function.Invoke();
+
+                if (goodResult)
+                    break;
             }
         }
 
-        private void CheckSolvedSessions(TestSession session)
+        private bool CheckSolvedSessions()
         {
-            if (session.SettingsId.HasValue == false)
-                return;
+            if (testSession.SettingsId.HasValue == false)
+                return false;
 
-            var solvedSession = NaOtvetClient.GetSolvedTestSession(session.SettingsId.Value);
+            var solvedSession = NaOtvetClient.GetSolvedTestSession(testSession.SettingsId.Value);
 
             if (solvedSession is null)
-                return;
+                return false;
 
             if (client.IsCorrectTestDocument(testSession, solvedSession.TestDocumentId, out FlashCard[] flashCards))
             {
                 CheckedDocumentsCount++;
-                Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(solvedSession.TestDocumentId, flashCards, testSession));
+                Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(solvedSession.TestDocumentId, testSession, flashCards));
+
+                return true;
             }
+
+            return false;
         }
 
-        private void CheckSameQuestions(TestSession session)
+        private bool CheckCreatorProfileTests()
         {
-            foreach (var currentQuestion in session.Questions)
+            if (testSession.CreatorId is null)
+                return false;
+
+            var testsDocumentsId = client.GetProfilePublicTestsDocumentsId((int)testSession.CreatorId);
+
+            foreach (var testDocumentId in testsDocumentsId)
             {
-                var documents = client.GetTestsDocumentsWithSameQuestions(currentQuestion.Content);
-                var documentsWithCurrentQuestion = documents
+                if (client.IsCorrectTestDocument(testSession, testDocumentId, out FlashCard[] flashCards))
+                {
+                    CheckedDocumentsCount++;
+                    Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(testDocumentId, testSession, flashCards));
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckImagesUrls()
+        {
+            // example: https://naurok-test2.nyc3.digitaloceanspaces.com/uploads/test/733454/541034/242158_1605794491.jpg
+            var urlRegex = new Regex(@"^http[s]?://naurok.*/uploads/test/[0-9]*/[0-9]*/[0-9]*_[0-9]*.[A-z]*$");
+            var matchedImagesUrls = new List<string>();
+
+            foreach (var question in testSession.Questions)
+            {
+                if (question.ImageUrl != null && urlRegex.IsMatch(question.ImageUrl))
+                    matchedImagesUrls.Add(question.ImageUrl);
+
+                foreach (var option in question.Options)
+                {
+                    if (option.ImageUrl != null && urlRegex.IsMatch(option.ImageUrl))
+                        matchedImagesUrls.Add(option.ImageUrl);
+                }
+            }
+
+            foreach (var url in matchedImagesUrls)
+            {
+                var testDocumentId = int.Parse(url.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[5]);
+
+                if (client.IsCorrectTestDocument(testSession, testDocumentId, out FlashCard[] flashCards))
+                {
+                    CheckedDocumentsCount++;
+                    Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(testDocumentId, testSession, flashCards));
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckSameQuestions()
+        {
+            foreach (var currentQuestion in testSession.Questions)
+            {
+                var documents = client.GetTestsDocumentsWithSameQuestions(currentQuestion.HtmlText);
+                var documentsWithCurrentDocumentQuestions = documents
                     .Where(document => 
                         document.Questions
-                        .Where(question => question.Id == currentQuestion.Id)
+                        .Where(question => testSession.Questions.Select(q => q.Id).Contains(question.Id))
                         .Count() > 0
                         );
 
-                if (documentsWithCurrentQuestion.Count() == 0)
+                if (documentsWithCurrentDocumentQuestions.Count() == 0)
                     continue;
 
-                foreach (var document in documentsWithCurrentQuestion)
+                foreach (var document in documentsWithCurrentDocumentQuestions)
                 {
                     if (client.IsCorrectTestDocument(testSession, document.Id, out FlashCard[] flashCards))
                     {
                         CheckedDocumentsCount++;
-                        Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, flashCards, testSession));
-                        break;
+                        //Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, testSession, flashCards));
+                        Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, document.Questions.ToArray()));
+
+                        return true;
                     }
                 }                
             }
+
+            return false;
         }
 
-        private void SaveAnswers(TestSession session, int testDocumentId)
+
+        private void SaveSolvedSession(int testDocumentId)
         {
-            if (session.SettingsId.HasValue == false)
+            if (testSession.SettingsId.HasValue == false)
                 return;
 
             var solvedSession = new SolvedTestSession()
             {
-                Id              = session.Id,
-                SettingsId      = session.SettingsId.Value,
+                Id              = testSession.Id,
+                SettingsId      = testSession.SettingsId.Value,
                 TestDocumentId  = testDocumentId
             };
 

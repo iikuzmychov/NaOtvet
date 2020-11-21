@@ -51,12 +51,12 @@ namespace NaUrokApiClient
             if (cards is null || cards.Length != Questions.Count)
                 return false;
 
-            var sortedQuestions = Questions.OrderBy(question => question.Id).ToArray();
+            //var sortedQuestions = Questions.OrderBy(question => question.Id).ToArray();
             var sortedCards = cards.OrderBy(card => card.Id).ToArray();
 
             for (int i = 0; i < Questions.Count; i++)
             {
-                if (sortedQuestions[i].IsCorrectFlashCard(sortedCards[i]) == false)
+                if (Questions[i].IsCorrectFlashCard(sortedCards[i]) == false)
                     return false;
             }
 
@@ -68,12 +68,12 @@ namespace NaUrokApiClient
             if (IsCorrectFlashCards(cards) == false)
                 throw new ArgumentException();
 
-            var sortedQuestions = Questions.OrderBy(question => question.Id).ToArray();
+            //var sortedQuestions = Questions.OrderBy(question => question.Id).ToArray();
             var sortedCards = cards.OrderBy(card => card.Id).ToArray();
 
             for (int i = 0; i < Questions.Count; i++)
             {
-                sortedQuestions[i].SetAnswer(sortedCards[i], false);
+                Questions[i].SetAnswer(sortedCards[i], false);
             }
         }
     }
