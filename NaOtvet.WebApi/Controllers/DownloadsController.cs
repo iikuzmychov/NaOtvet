@@ -83,11 +83,12 @@ namespace NaOtvet.WebApi.Controllers
         [HttpPut]
         public int LastVersionNewDownload()
         {
-            var appVersionsController = new ApplicationVersionsController();
-            var lastVersionId = appVersionsController.GetLastVersion().Id;
-            var lastVersion = context.ApplicationVersions.First(version => version.Id == lastVersionId);
+            var lastVersion = context.ApplicationVersions
+                    .OrderByDescending(appVersion => appVersion.Version)
+                    .First();
 
             return NewDownload(lastVersion);
         }
     }
 }
+

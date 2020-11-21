@@ -1,33 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE dotfuscator SYSTEM "http://www.preemptive.com/dotfuscator/dtd/dotfuscator_v2.4.dtd">
 <dotfuscator version="2.3">
-  <global>
-    <option>inheritoas</option>
-    <option>suppressildasm</option>
-  </global>
   <input>
     <loadpaths />
     <asmlist>
-      <inputassembly refid="1aae97c4-e654-4cd7-85d8-cf471030a71a">
-        <option>honoroas</option>
-        <option>stripoa</option>
-        <option>library</option>
-        <option>transformxaml</option>
-        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.ApiClient.dll" />
-      </inputassembly>
-      <inputassembly refid="b5619ff5-7152-4be2-b5b7-6cda80827dfd">
-        <option>honoroas</option>
-        <option>stripoa</option>
-        <option>library</option>
-        <option>transformxaml</option>
-        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Core.dll" />
-      </inputassembly>
-      <inputassembly refid="d835c135-d84e-4735-90f4-a69f4c1ba5a4">
+      <inputassembly refid="570ee756-44de-47dd-bb4c-8087eb55ad72">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.exe" />
+      </inputassembly>
+      <inputassembly refid="84bf580a-9033-4240-9722-70c4830ee3a6">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaUrokApiClient.dll" />
+      </inputassembly>
+      <inputassembly refid="f85df4c7-fbab-4ffb-b390-b82858ef8c54">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Api.Client.dll" />
+      </inputassembly>
+      <inputassembly refid="1ddbbb1a-96b8-47c0-89c6-fc3c4463d92c">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Api.Models.dll" />
+      </inputassembly>
+      <inputassembly refid="c088d2c9-9e1d-4712-89c5-c5663b85f49c">
+        <option>honoroas</option>
+        <option>stripoa</option>
+        <option>library</option>
+        <option>transformxaml</option>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Core.dll" />
       </inputassembly>
     </asmlist>
   </input>
@@ -42,7 +52,10 @@
   <stringencrypt>
     <includelist>
       <assembly>
-        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.ApiClient.dll" />
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Api.Client.dll" />
+      </assembly>
+      <assembly>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Api.Models.dll" />
       </assembly>
       <assembly>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Core.dll" />
@@ -50,11 +63,11 @@
       <assembly>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.exe" />
       </assembly>
+      <assembly>
+        <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaUrokApiClient.dll" />
+      </assembly>
     </includelist>
   </stringencrypt>
-  <removal>
-    <referencerulelist />
-  </removal>
   <linking />
   <sos mergeruntime="true">
     <option>version:v4</option>

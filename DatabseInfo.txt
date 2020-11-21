@@ -9,3 +9,9 @@ Database name: IVg0ywhIfP
 Password: fIcY4HxjbB
 Server: remotemysql.com
 Port: 3306
+
+Username: YmMyoN4FGA
+Database name: YmMyoN4FGA
+Password: LJ1MqhpXTH
+Server: remotemysql.com
+Port: 3306

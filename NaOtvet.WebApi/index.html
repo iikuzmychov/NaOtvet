@@ -89,7 +89,7 @@
                 <!--<li>Дата публикации: <text id="publishDate"></text></li>-->
                 <li>
                     Кол-во скачиваний: <text id="downloadsCount"></text>
-                    <a style="cursor: pointer" onclick="updateVersionInfo()"><i class="fas fa-sync-alt"></i></a>
+                    <a style="cursor: pointer" onclick="updateInfo()"><i class="fas fa-sync-alt"></i></a>
                 </li>
             </ul><!--//meta-->
         </div><!--//container-->
@@ -198,25 +198,30 @@
     </footer><!--//footer-->
 
     <script>
-        function updateVersionInfo() {
+        function updateInfo() {
             var loadingText = "загрузка...";
             document.getElementById("downloadsCount").innerText = loadingText;
-            //document.getElementById("publishDate").innerText    = loadingText;
-            document.getElementById("version").innerText        = loadingText;
+            document.getElementById("version").innerText = loadingText;
 
+            updateVersionInfo();
+            updateDownloadsInfo();
+        }
+
+        function updateVersionInfo() {
             var versionRequest = new XMLHttpRequest();
 
             versionRequest.onreadystatechange = function () {
                 if (versionRequest.readyState === 4) {
                     var json = JSON.parse(versionRequest.response);
-                    //document.getElementById("publishDate").innerText    = new Date(json["publishDate"]).toLocaleDateString("ru-RU");
                     document.getElementById("version").innerText        = json["version"];
                 }
             };
 
             versionRequest.open("GET", "/api/application/lastVersion");
             versionRequest.send();
+        }
 
+        function updateDownloadsInfo() {
             var totalDownloadsRequest = new XMLHttpRequest();
 
             totalDownloadsRequest.onreadystatechange = function () {
@@ -239,14 +244,14 @@
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4)
-                    document.getElementById("downloadsCount").innerText = parseInt(xhr.responseText).toLocaleString();
+                    updateDownloadsInfo();
             };
 
             xhr.open("PUT", "/api/application/lastVersion/newDownload");
             xhr.send();
         }
 
-        updateVersionInfo();
+        updateInfo();
     </script>
     <script src="https://kit.fontawesome.com/2b47558e31.js" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

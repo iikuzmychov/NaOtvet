@@ -18,7 +18,7 @@ namespace NaOtvet.WebApi.Controllers
         }
 
         protected override void Dispose(bool disposing)
-        {
+        {            
             context.Dispose();
         }
 
