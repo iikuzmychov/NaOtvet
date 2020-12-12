@@ -1,38 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE dotfuscator SYSTEM "http://www.preemptive.com/dotfuscator/dtd/dotfuscator_v2.4.dtd">
 <dotfuscator version="2.3">
+  <global>
+    <option>suppressildasm</option>
+  </global>
   <input>
     <loadpaths />
     <asmlist>
-      <inputassembly refid="570ee756-44de-47dd-bb4c-8087eb55ad72">
+      <inputassembly refid="3f44176e-c49f-4973-8846-115f9d2373d5">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.exe" />
       </inputassembly>
-      <inputassembly refid="84bf580a-9033-4240-9722-70c4830ee3a6">
+      <inputassembly refid="3ad5f451-4c9b-4993-a64d-e739d50085c7">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaUrokApiClient.dll" />
       </inputassembly>
-      <inputassembly refid="f85df4c7-fbab-4ffb-b390-b82858ef8c54">
+      <inputassembly refid="02e8cb28-3109-4397-aafb-0c7a8684a3f1">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Api.Client.dll" />
       </inputassembly>
-      <inputassembly refid="1ddbbb1a-96b8-47c0-89c6-fc3c4463d92c">
+      <inputassembly refid="4da30c4c-47ff-42fb-a965-e04d1e45450a">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
         <option>transformxaml</option>
         <file dir="D:\IT Projects\Other\NaOtvet\NaOtvet\bin\Release" name="NaOtvet.Api.Models.dll" />
       </inputassembly>
-      <inputassembly refid="c088d2c9-9e1d-4712-89c5-c5663b85f49c">
+      <inputassembly refid="2204ef42-75bf-40c9-8382-88a8098e1aa5">
         <option>honoroas</option>
         <option>stripoa</option>
         <option>library</option>
@@ -46,6 +49,11 @@
   </output>
   <renaming>
     <option>xmlserialization</option>
+    <mapping>
+      <mapoutput overwrite="false">
+        <file dir="${configdir}\Dotfuscated" name="Map.xml" />
+      </mapoutput>
+    </mapping>
     <referencerulelist />
   </renaming>
   <controlflow level="high" />
@@ -68,7 +76,6 @@
       </assembly>
     </includelist>
   </stringencrypt>
-  <linking />
   <sos mergeruntime="true">
     <option>version:v4</option>
     <option>dontsendtamper</option>

@@ -25,7 +25,8 @@ namespace NaOtvet
 
         private void AnswersForm_Load(object sender, EventArgs e)
         {
-            GenerateControlsForQuestions();
+            if (testQuestions.Length > 0)
+                GenerateControlsForQuestions();
         }
 
         private void AnswersForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,7 +173,6 @@ namespace NaOtvet
                 Text        = "Вопрос отвечен",
             };
 
-            SimpleToolTip.SetToolTip(questionCheckBox, "Нажмите, что бы скрыть вопрос");
             questionCheckBox.CheckedChanged += (sender, args) => QuestionTextBox_CheckedChanged(sender, questionTextBox);
             Controls.Add(questionCheckBox);
 

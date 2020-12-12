@@ -84,11 +84,11 @@ namespace NaUrokApiClient
             else
                 showTimer = json["settings"]["show_timer"].Value<bool>();
 
-            if (json["settings"]["duration"] != null)
-                session.Duration = showTimer ? TimeSpan.FromMinutes(json["settings"]["duration"].Value<int>()) : (TimeSpan?)null;
+            if (json["settings"]["duration"] != null && showTimer)
+                session.Duration = TimeSpan.FromMinutes(json["settings"]["duration"].Value<int>());
 
-            if (json["settings"]["deadline"] != null)
-                session.TestEndDateTime     = DateTimeOffset.FromUnixTimeSeconds(json["settings"]["deadline"].Value<long>()).LocalDateTime;
+            if (json["settings"]["deadline"] != null && json["settings"]["deadline"].Type != JTokenType.Null)
+                session.TestEndDateTime = DateTimeOffset.FromUnixTimeSeconds(json["settings"]["deadline"].Value<long>()).LocalDateTime;
 
             if (json["settings"]["created_at"] != null)
                 session.TestStartDateTime = DateTimeOffset.FromUnixTimeSeconds(json["settings"]["created_at"].Value<long>()).LocalDateTime;

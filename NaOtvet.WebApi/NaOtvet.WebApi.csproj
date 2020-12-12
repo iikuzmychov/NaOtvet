@@ -317,7 +317,8 @@
     <Content Include="assets\plugins\jquery-scrollTo\scrollTo.jquery.json" />
     <Content Include="naurok_assets\fonts\fontawesome-webfont.woff" />
     <Content Include="naurok_assets\fonts\fontawesome-webfont.woff2" />
-    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\naotvet - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\naotvet - GearHost.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

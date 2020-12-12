@@ -99,7 +99,7 @@
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.StartButton.Location = new System.Drawing.Point(0, 0);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(162, 41);
+            this.StartButton.Size = new System.Drawing.Size(110, 41);
             this.StartButton.TabIndex = 2;
             this.StartButton.Text = "Старт";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.StopButton.Location = new System.Drawing.Point(0, 0);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(141, 41);
+            this.StopButton.Size = new System.Drawing.Size(237, 41);
             this.StopButton.TabIndex = 3;
             this.StopButton.Text = "Стоп";
             this.StopButton.UseVisualStyleBackColor = true;
@@ -153,7 +153,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Size = new System.Drawing.Size(510, 41);
-            this.splitContainer1.SplitterDistance = 162;
+            this.splitContainer1.SplitterDistance = 110;
             this.splitContainer1.TabIndex = 5;
             // 
             // splitContainer3
@@ -169,8 +169,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.StopButton);
-            this.splitContainer3.Size = new System.Drawing.Size(344, 41);
-            this.splitContainer3.SplitterDistance = 199;
+            this.splitContainer3.Size = new System.Drawing.Size(396, 41);
+            this.splitContainer3.SplitterDistance = 155;
             this.splitContainer3.TabIndex = 0;
             // 
             // OpenTestButton
@@ -180,7 +180,7 @@
             this.OpenTestButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.OpenTestButton.Location = new System.Drawing.Point(0, 0);
             this.OpenTestButton.Name = "OpenTestButton";
-            this.OpenTestButton.Size = new System.Drawing.Size(199, 41);
+            this.OpenTestButton.Size = new System.Drawing.Size(155, 41);
             this.OpenTestButton.TabIndex = 4;
             this.OpenTestButton.Text = "Открыть тест";
             this.OpenTestButton.UseVisualStyleBackColor = true;
@@ -239,6 +239,7 @@
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(6, 81);
             this.splitContainer2.Name = "splitContainer2";
             // 
@@ -254,7 +255,7 @@
             this.splitContainer2.Panel2.Enabled = false;
             this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer2.Size = new System.Drawing.Size(510, 41);
-            this.splitContainer2.SplitterDistance = 198;
+            this.splitContainer2.SplitterDistance = 212;
             this.splitContainer2.TabIndex = 9;
             // 
             // TestInfoButton
@@ -264,7 +265,7 @@
             this.TestInfoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.TestInfoButton.Location = new System.Drawing.Point(0, 0);
             this.TestInfoButton.Name = "TestInfoButton";
-            this.TestInfoButton.Size = new System.Drawing.Size(198, 41);
+            this.TestInfoButton.Size = new System.Drawing.Size(212, 41);
             this.TestInfoButton.TabIndex = 10;
             this.TestInfoButton.Text = "Про тест";
             this.TestInfoButton.UseVisualStyleBackColor = true;
@@ -276,7 +277,7 @@
             this.TestTimeLeftText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TestTimeLeftText.Location = new System.Drawing.Point(196, 8);
             this.TestTimeLeftText.Name = "TestTimeLeftText";
-            this.TestTimeLeftText.Size = new System.Drawing.Size(109, 25);
+            this.TestTimeLeftText.Size = new System.Drawing.Size(95, 25);
             this.TestTimeLeftText.TabIndex = 11;
             this.TestTimeLeftText.Text = "00:00:00";
             this.TestTimeLeftText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

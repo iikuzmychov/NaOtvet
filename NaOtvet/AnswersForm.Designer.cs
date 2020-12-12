@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnswersForm));
-            this.SimpleToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // AnswersForm
@@ -38,13 +35,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(837, 508);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(855, 555);
+            this.ClientSize = new System.Drawing.Size(806, 452);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(855, 555);
+            this.MinimumSize = new System.Drawing.Size(692, 47);
             this.Name = "AnswersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Вопрос-ответ";
@@ -55,7 +49,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ToolTip SimpleToolTip;
     }
 }
