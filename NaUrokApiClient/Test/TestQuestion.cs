@@ -18,8 +18,8 @@ namespace NaUrokApiClient
         public string HtmlText { get; set; }
         public string ImageUrl { get; set; }
         public QuestionType Type { get; set; }
-        public List<QuestionOption> Options { get; private set; }
-        public List<QuestionOption> Answers { get; private set; }
+        public List<QuestionOption> Options { get; set; }
+        public List<QuestionOption> Answers { get; set; }
 
         public TestQuestion()
         {

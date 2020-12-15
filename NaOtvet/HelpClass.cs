@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 
 namespace NaOtvet
 {
@@ -70,6 +71,19 @@ namespace NaOtvet
             {
                 return Image.FromStream(memoryStream);
             }
+        }
+
+        public static string HtmlToPlainText(string html)
+        {
+            if (html != null)
+                return Regex.Replace(html, @"<[^>]*>", "");
+            else
+                return null;
+        }
+
+        public static decimal PointsToSystem(decimal points, decimal oldSystem, int newSystem)
+        {
+            return points * newSystem / oldSystem;
         }
     }
 }

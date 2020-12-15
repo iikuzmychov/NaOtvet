@@ -55,10 +55,6 @@ namespace NaOtvet
                 LoadRemoteData();
 
                 client = new NaUrokClient(naurokAccount.Login, naurokAccount.Password);
-                var r = new QuestionsAnswersForm();
-                var control = new QuestionAnswerControl("Пример вопросика вот такой вот", 5, new string[] { "Да", "Манда" }, new UrlDescription[] { });
-                r.Controls.Add(control);
-                r.Show();
             }
             catch (Exception)
             {
@@ -349,10 +345,10 @@ namespace NaOtvet
                 Stop();                
                 SystemSounds.Asterisk.Play();
 
-                var answersForm = new AnswersForm(args.Questions);
-                answersForm.TopMost = true;
-                answersForm.Show();                
-                answersForm.TopMost = false;
+                var questionsAnswersForm = new QuestionsAnswersForm(args.Questions);
+                questionsAnswersForm.TopMost = true;
+                questionsAnswersForm.Show();                
+                questionsAnswersForm.TopMost = false;
             }));
         }
 

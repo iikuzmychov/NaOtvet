@@ -75,20 +75,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnswersForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AnswersForm.Designer.cs">
-      <DependentUpon>AnswersForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ControlStateChangedEventArgs.cs" />
     <Compile Include="UrlDescription.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="HelpClass.cs" />
-    <Compile Include="ImageViewForm.cs">
+    <Compile Include="PictureViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageViewForm.Designer.cs">
-      <DependentUpon>ImageViewForm.cs</DependentUpon>
+    <Compile Include="PictureViewForm.Designer.cs">
+      <DependentUpon>PictureViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingForm.cs">
       <SubType>Form</SubType>
@@ -128,12 +123,8 @@
     <Compile Include="TestInfoForm.Designer.cs">
       <DependentUpon>TestInfoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AnswersForm.resx">
-      <DependentUpon>AnswersForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageViewForm.resx">
-      <DependentUpon>ImageViewForm.cs</DependentUpon>
+    <EmbeddedResource Include="PictureViewForm.resx">
+      <DependentUpon>PictureViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>

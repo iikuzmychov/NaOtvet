@@ -36,7 +36,7 @@
             this.PointsLabel = new System.Windows.Forms.Label();
             this.QuestionText = new System.Windows.Forms.Label();
             this.QuestionLabel = new System.Windows.Forms.Label();
-            this.QuestionAnsweredCheckBox = new System.Windows.Forms.CheckBox();
+            this.QuestionCollapsedCheckBox = new System.Windows.Forms.CheckBox();
             this.ExampleImageLinkLabel = new System.Windows.Forms.LinkLabel();
             this.PicturesPanel = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
@@ -59,6 +59,7 @@
             this.MainPanel.Controls.Add(this.QuestionLabel);
             this.MainPanel.Location = new System.Drawing.Point(5, 5);
             this.MainPanel.Margin = new System.Windows.Forms.Padding(5);
+            this.MainPanel.MinimumSize = new System.Drawing.Size(400, 0);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Padding = new System.Windows.Forms.Padding(3);
             this.MainPanel.Size = new System.Drawing.Size(592, 147);
@@ -155,22 +156,22 @@
             this.QuestionLabel.TabIndex = 4;
             this.QuestionLabel.Text = "Вопрос:";
             // 
-            // QuestionAnsweredCheckBox
+            // QuestionCollapsedCheckBox
             // 
-            this.QuestionAnsweredCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.QuestionAnsweredCheckBox.AutoSize = true;
-            this.QuestionAnsweredCheckBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.QuestionAnsweredCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.QuestionAnsweredCheckBox.Font = new System.Drawing.Font("Montserrat", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.QuestionAnsweredCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.QuestionAnsweredCheckBox.Location = new System.Drawing.Point(617, 7);
-            this.QuestionAnsweredCheckBox.Margin = new System.Windows.Forms.Padding(15, 4, 3, 3);
-            this.QuestionAnsweredCheckBox.Name = "QuestionAnsweredCheckBox";
-            this.QuestionAnsweredCheckBox.Size = new System.Drawing.Size(191, 30);
-            this.QuestionAnsweredCheckBox.TabIndex = 1;
-            this.QuestionAnsweredCheckBox.Text = "Вопрос свёрнут";
-            this.QuestionAnsweredCheckBox.UseVisualStyleBackColor = true;
-            this.QuestionAnsweredCheckBox.CheckedChanged += new System.EventHandler(this.QuestionAnsweredCheckBox_CheckedChanged);
+            this.QuestionCollapsedCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuestionCollapsedCheckBox.AutoSize = true;
+            this.QuestionCollapsedCheckBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.QuestionCollapsedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.QuestionCollapsedCheckBox.Font = new System.Drawing.Font("Montserrat", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.QuestionCollapsedCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.QuestionCollapsedCheckBox.Location = new System.Drawing.Point(617, 7);
+            this.QuestionCollapsedCheckBox.Margin = new System.Windows.Forms.Padding(15, 4, 3, 3);
+            this.QuestionCollapsedCheckBox.Name = "QuestionCollapsedCheckBox";
+            this.QuestionCollapsedCheckBox.Size = new System.Drawing.Size(191, 30);
+            this.QuestionCollapsedCheckBox.TabIndex = 1;
+            this.QuestionCollapsedCheckBox.Text = "Вопрос свёрнут";
+            this.QuestionCollapsedCheckBox.UseVisualStyleBackColor = true;
+            this.QuestionCollapsedCheckBox.CheckedChanged += new System.EventHandler(this.QuestionCollapsedCheckBox_CheckedChanged);
             // 
             // ExampleImageLinkLabel
             // 
@@ -182,7 +183,7 @@
             this.ExampleImageLinkLabel.Location = new System.Drawing.Point(0, 0);
             this.ExampleImageLinkLabel.Margin = new System.Windows.Forms.Padding(3);
             this.ExampleImageLinkLabel.Name = "ExampleImageLinkLabel";
-            this.ExampleImageLinkLabel.Size = new System.Drawing.Size(189, 26);
+            this.ExampleImageLinkLabel.Size = new System.Drawing.Size(191, 26);
             this.ExampleImageLinkLabel.TabIndex = 2;
             this.ExampleImageLinkLabel.TabStop = true;
             this.ExampleImageLinkLabel.Text = "Рис. X";
@@ -194,13 +195,12 @@
             this.PicturesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PicturesPanel.AutoSize = true;
             this.PicturesPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.PicturesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PicturesPanel.Controls.Add(this.ExampleImageLinkLabel);
             this.PicturesPanel.Location = new System.Drawing.Point(617, 45);
             this.PicturesPanel.Margin = new System.Windows.Forms.Padding(15, 5, 5, 5);
-            this.PicturesPanel.MinimumSize = new System.Drawing.Size(191, 0);
+            this.PicturesPanel.MinimumSize = new System.Drawing.Size(191, 2);
             this.PicturesPanel.Name = "PicturesPanel";
-            this.PicturesPanel.Size = new System.Drawing.Size(191, 28);
+            this.PicturesPanel.Size = new System.Drawing.Size(191, 26);
             this.PicturesPanel.TabIndex = 3;
             // 
             // QuestionAnswerControl
@@ -211,7 +211,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.Controls.Add(this.PicturesPanel);
-            this.Controls.Add(this.QuestionAnsweredCheckBox);
+            this.Controls.Add(this.QuestionCollapsedCheckBox);
             this.Controls.Add(this.MainPanel);
             this.MinimumSize = new System.Drawing.Size(540, 0);
             this.Name = "QuestionAnswerControl";
@@ -230,7 +230,7 @@
         #endregion
 
         private System.Windows.Forms.Panel MainPanel;
-        private System.Windows.Forms.CheckBox QuestionAnsweredCheckBox;
+        private System.Windows.Forms.CheckBox QuestionCollapsedCheckBox;
         private System.Windows.Forms.LinkLabel ExampleImageLinkLabel;
         private System.Windows.Forms.Label PointsLabel;
         private System.Windows.Forms.Label QuestionText;

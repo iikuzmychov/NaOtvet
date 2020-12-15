@@ -13,7 +13,7 @@ namespace NaOtvet
         private readonly Size formStartSize;
 
         private string question;
-        private float points;
+        private decimal points;
         private bool isMinimized;
 
         private List<Label> answersLabels = new List<Label>();
@@ -21,6 +21,8 @@ namespace NaOtvet
 
         private List<LinkLabel> picturesLinksLabels = new List<LinkLabel>();
         private ObservableCollection<UrlDescription> pictures = new ObservableCollection<UrlDescription>();
+
+        public EventHandler<ControlStateChangedEventArgs> OnControlStateChanged;
 
         public bool IsMinimized
         {
@@ -35,7 +37,7 @@ namespace NaOtvet
 
                 if (isMinimized)
                 {
-                    QuestionAnsweredCheckBox.CheckState = CheckState.Checked;                    
+                    QuestionCollapsedCheckBox.CheckState = CheckState.Checked;                    
                     QuestionShortText.Visible = true;
                     QuestionText.Visible    = false;
                     AnswersLabel.Visible    = false;
@@ -44,13 +46,15 @@ namespace NaOtvet
                 }
                 else
                 {
-                    QuestionAnsweredCheckBox.CheckState = CheckState.Unchecked;
+                    QuestionCollapsedCheckBox.CheckState = CheckState.Unchecked;
                     QuestionShortText.Visible   = false;
                     QuestionText.Visible    = true;
                     AnswersLabel.Visible    = true;
                     AnswersPanel.Visible    = true;
                     PicturesPanel.Visible   = true;
                 }
+
+                OnControlStateChanged?.Invoke(this, new ControlStateChangedEventArgs(isMinimized));
             }
         }
         public string Question
@@ -70,7 +74,7 @@ namespace NaOtvet
                 QuestionShortText.Text = question;
             }
         }
-        public float Points
+        public decimal Points
         {
             get
             {
@@ -159,8 +163,22 @@ namespace NaOtvet
             Points = 1;
         }
 
-        public QuestionAnswerControl(string question, float points, string[] answers, UrlDescription[] pictures) : this()
+        public QuestionAnswerControl(string question, decimal points, string[] answers, UrlDescription[] pictures) : this()
         {
+            Question    = question;
+            Points      = points;
+            Answers     = new ObservableCollection<string>(answers);
+            Pictures    = new ObservableCollection<UrlDescription>(pictures);
+        }
+
+        public QuestionAnswerControl(string question, decimal points, List<string> answers, List<UrlDescription> pictures) : this()
+        {
+            if (answers is null)
+                throw new ArgumentNullException(nameof(answers));
+
+            if (pictures is null)
+                throw new ArgumentNullException(nameof(pictures));
+
             Question    = question;
             Points      = points;
             Answers     = new ObservableCollection<string>(answers);
@@ -170,7 +188,8 @@ namespace NaOtvet
 
         private void QuestionText_Paint(object sender, PaintEventArgs e)
         {
-            QuestionText.MaximumSize = new Size(MainPanel.ClientSize.Width, 0);
+            var newWidth = MainPanel.ClientSize.Width - MainPanel.Padding.Right - QuestionText.Margin.Right;
+            QuestionText.MaximumSize = new Size(newWidth, 0);
         }
 
         private void QuestionAnswerControl_Paint(object sender, PaintEventArgs e)
@@ -178,7 +197,7 @@ namespace NaOtvet
             MainPanel.Width = this.Width + this.Margin.Left + this.Margin.Right - (formStartSize.Width - mainPanelStartSize.Width);
         }
 
-        private void QuestionAnsweredCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void QuestionCollapsedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             var checkBox = sender as CheckBox;
             
@@ -250,7 +269,7 @@ namespace NaOtvet
         {
             if (e.Button == MouseButtons.Left)
             {
-                var viewForm = new ImageViewForm((string)e.Link.LinkData, e.Link.Description);
+                var viewForm = new PictureViewForm((string)e.Link.LinkData, e.Link.Description);
                 viewForm.ShowDialog();
             }
         }
