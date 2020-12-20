@@ -76,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlStateChangedEventArgs.cs" />
+    <Compile Include="Controls\CustomizableLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomizableButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UrlDescription.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="HelpClass.cs" />
@@ -105,17 +111,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuestionAnswerControl.cs">
+    <Compile Include="Controls\QuestionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="QuestionAnswerControl.Designer.cs">
-      <DependentUpon>QuestionAnswerControl.cs</DependentUpon>
+    <Compile Include="Controls\QuestionView.Designer.cs">
+      <DependentUpon>QuestionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuestionsAnswersForm.cs">
+    <Compile Include="QuestionsViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuestionsAnswersForm.Designer.cs">
-      <DependentUpon>QuestionsAnswersForm.cs</DependentUpon>
+    <Compile Include="QuestionsViewForm.Designer.cs">
+      <DependentUpon>QuestionsViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TestInfoForm.cs">
       <SubType>Form</SubType>
@@ -145,11 +151,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="QuestionAnswerControl.resx">
-      <DependentUpon>QuestionAnswerControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\QuestionView.resx">
+      <DependentUpon>QuestionView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuestionsAnswersForm.resx">
-      <DependentUpon>QuestionsAnswersForm.cs</DependentUpon>
+    <EmbeddedResource Include="QuestionsViewForm.resx">
+      <DependentUpon>QuestionsViewForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TestInfoForm.resx">

@@ -33,6 +33,7 @@ namespace NaUrokApiClient
             question.Id         = Id;
             question.Points     = Points;
             question.HtmlText   = HtmlText;
+            question.ImageUrl   = ImageUrl;
             question.Type       = Type;
             question.Options    = Options.Select(option => (QuestionOption)option.Clone()).ToList();
             question.Answers    = Answers.Select(answer => (QuestionOption)answer.Clone()).ToList();

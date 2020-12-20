@@ -142,13 +142,13 @@ namespace NaOtvet
         }
 
         private void OpenTestButton_Click(object sender, EventArgs e)
-        {
+        {            
             Process.Start("https://naurok.com.ua/test/testing/" + UuIdText.Text);
         }
 
         private void TestInfoButton_Click(object sender, EventArgs e)
         {
-            new TestInfoForm(finderSystem.GetTestSession()).ShowDialog();
+            new TestInfoForm(finderSystem.GetTestSession()).Show();
         }
 
         private void JoinNaurokLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -159,8 +159,9 @@ namespace NaOtvet
         private void ClearUuIdTextButton_Click(object sender, EventArgs e)
         {
             UuIdText.Text = string.Empty;
-            UuIdText.BackColor = Color.FromKnownColor(KnownColor.Control);
-            UuIdText.Enabled = true;
+            UuIdText.BackColor = Color.FromArgb(30, 30, 30);
+            UuIdTextPanel.BackColor = Color.FromArgb(30, 30, 30);
+            UuIdTextPanel.Enabled = true;
         }
 
         private void LogoImage_Click(object sender, EventArgs e)
@@ -168,36 +169,42 @@ namespace NaOtvet
             Process.Start(youtubeChannelUrl);
         }
 
-        
+        private void UuIdTextPanel_Click(object sender, EventArgs e)
+        {
+            UuIdText.Focus();
+        }
+
         private void UuIdText_TextChanged(object sender, EventArgs e)
         {
-            var textBox = (TextBox)sender;
             var uuIdRegexPattern = @"\w{8}-\w{4}-\w{4}-\w{4}-\w{12}";
             var uuIdRegex = new Regex(uuIdRegexPattern);
             var uuIdOnlyRegex = new Regex($@"\A{uuIdRegexPattern}\z");
             var urlOnlyRegex = new Regex($@"\A(https://)?naurok(\.com)?\.ua/test/(testing|realtime-client)/{uuIdRegexPattern}\z");
 
-            if (textBox.Text == string.Empty && uuIdOnlyRegex.IsMatch(textBox.Text) == false)
+            if (UuIdText.Text == string.Empty && uuIdOnlyRegex.IsMatch(UuIdText.Text) == false)
             {
                 OpenTestButton.Enabled = false;
                 TestInfoButton.Enabled = false;
                 return;
             }
 
-            if (urlOnlyRegex.IsMatch(textBox.Text) && uuIdRegex.IsMatch(textBox.Text))
+            if (urlOnlyRegex.IsMatch(UuIdText.Text) && uuIdRegex.IsMatch(UuIdText.Text))
             {
-                textBox.Text = uuIdRegex.Match(textBox.Text).Value;
+                UuIdText.Text = uuIdRegex.Match(UuIdText.Text).Value;
             }
-            if (uuIdOnlyRegex.IsMatch(textBox.Text))
+            if (uuIdOnlyRegex.IsMatch(UuIdText.Text))
             {
-                textBox.BackColor   = Color.LimeGreen;
-                textBox.Enabled     = false;
-                OpenTestButton.Enabled = true;
+                UuIdText.BackColor      = Color.FromArgb(74, 253, 49);
+                UuIdTextPanel.BackColor = Color.FromArgb(74, 253, 49);
+
+                UuIdTextPanel.Enabled   = false;
+                OpenTestButton.Enabled  = true;
             }
             else
             {
-                textBox.Text        = string.Empty;
-                textBox.BackColor   = Color.Red;
+                UuIdText.Text           = string.Empty;
+                UuIdText.BackColor      = Color.FromArgb(255, 40, 55);
+                UuIdTextPanel.BackColor = Color.FromArgb(255, 40, 55);
 
                 OpenTestButton.Enabled = false;
                 TestInfoButton.Enabled = false;
@@ -238,14 +245,12 @@ namespace NaOtvet
             stopwatch.Stop();
             TestTimer.Stop();
             
-            TestInfoButton.Enabled          = false;
             StopButton.Enabled              = false;
             splitContainer2.Panel2.Enabled  = false;
             ClearUuIdTextButton.Enabled     = true;
             StartButton.Enabled             = true;
 
             TestTimeLeftText.Text = "00:00:00";
-            TestTimeLeftText.ForeColor = Color.Black;
         }
 
         private void Log(string text)
@@ -304,10 +309,10 @@ namespace NaOtvet
                 var timeLeft = session.EndDateTime.Value - DateTime.Now;
                 TestTimeLeftText.Text = timeLeft.ToString(@"hh\:mm\:ss");
 
-                if (timeLeft.TotalMinutes <= 5 && session.Duration.Value.TotalMinutes >= 5)
+                /*if (timeLeft.TotalMinutes <= 5 && session.Duration.Value.TotalMinutes >= 5)
                 {
                     TestTimeLeftText.ForeColor = Color.Red;
-                }
+                }*/
             }
             else
             {
@@ -345,10 +350,10 @@ namespace NaOtvet
                 Stop();                
                 SystemSounds.Asterisk.Play();
 
-                var questionsAnswersForm = new QuestionsAnswersForm(args.Questions);
-                questionsAnswersForm.TopMost = true;
-                questionsAnswersForm.Show();                
-                questionsAnswersForm.TopMost = false;
+                var questionsViewForm = new QuestionsViewForm(args.Questions, true);
+                questionsViewForm.TopMost = true;
+                questionsViewForm.Show();                
+                questionsViewForm.TopMost = false;
             }));
         }
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace NaOtvet
 {
@@ -84,6 +85,33 @@ namespace NaOtvet
         public static decimal PointsToSystem(decimal points, decimal oldSystem, int newSystem)
         {
             return points * newSystem / oldSystem;
+        }
+
+        public static TextFormatFlags TextAlignToFormatFlags(ContentAlignment align)
+        {
+            switch (align)
+            {
+                case ContentAlignment.MiddleCenter:
+                    return TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                case ContentAlignment.BottomCenter:
+                    return TextFormatFlags.HorizontalCenter | TextFormatFlags.Bottom;
+                case ContentAlignment.BottomLeft:
+                    return TextFormatFlags.Left | TextFormatFlags.Bottom;
+                case ContentAlignment.BottomRight:
+                    return TextFormatFlags.Right | TextFormatFlags.Bottom;
+                case ContentAlignment.MiddleLeft:
+                    return TextFormatFlags.VerticalCenter | TextFormatFlags.Left;
+                case ContentAlignment.MiddleRight:
+                    return TextFormatFlags.VerticalCenter | TextFormatFlags.Right;
+                case ContentAlignment.TopCenter:
+                    return TextFormatFlags.Top | TextFormatFlags.HorizontalCenter;
+                case ContentAlignment.TopLeft:
+                    return TextFormatFlags.Top | TextFormatFlags.Left;
+                case ContentAlignment.TopRight:
+                    return TextFormatFlags.Top | TextFormatFlags.Right;
+            }
+
+            return TextFormatFlags.HorizontalCenter | TextFormatFlags.Top;
         }
     }
 }

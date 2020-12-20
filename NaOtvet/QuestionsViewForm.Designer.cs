@@ -1,6 +1,6 @@
 ﻿namespace NaOtvet
 {
-    partial class QuestionsAnswersForm
+    partial class QuestionsViewForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuestionsAnswersForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuestionsViewForm));
             this.SearchPanel = new System.Windows.Forms.Panel();
             this.ClearSearchQueryButton = new System.Windows.Forms.Button();
             this.OnlyNotCollapsedQuestionsCheckBox = new System.Windows.Forms.CheckBox();
@@ -150,13 +150,14 @@
             this.NothingFindedLabel.Location = new System.Drawing.Point(0, 0);
             this.NothingFindedLabel.Margin = new System.Windows.Forms.Padding(3);
             this.NothingFindedLabel.Name = "NothingFindedLabel";
+            this.NothingFindedLabel.Padding = new System.Windows.Forms.Padding(3);
             this.NothingFindedLabel.Size = new System.Drawing.Size(820, 427);
             this.NothingFindedLabel.TabIndex = 9;
             this.NothingFindedLabel.Text = "Ничего не найдено";
             this.NothingFindedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.NothingFindedLabel.Visible = false;
             // 
-            // QuestionsAnswersForm
+            // QuestionsViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -166,8 +167,9 @@
             this.Controls.Add(this.SearchPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 530);
-            this.Name = "QuestionsAnswersForm";
-            this.Text = "Ответы на вопросы";
+            this.Name = "QuestionsViewForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Просмотр вопросов";
             this.Load += new System.EventHandler(this.QuestionsAnswersForm_Load);
             this.Shown += new System.EventHandler(this.QuestionsAnswersForm_Shown);
             this.SearchPanel.ResumeLayout(false);

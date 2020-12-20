@@ -1,6 +1,6 @@
 ﻿namespace NaOtvet
 {
-    partial class QuestionAnswerControl
+    partial class QuestionView
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -30,9 +30,9 @@
         {
             this.MainPanel = new System.Windows.Forms.Panel();
             this.QuestionShortText = new System.Windows.Forms.Label();
-            this.AnswersPanel = new System.Windows.Forms.Panel();
+            this.OptionsPanel = new System.Windows.Forms.Panel();
             this.ExampleAnswerText = new System.Windows.Forms.Label();
-            this.AnswersLabel = new System.Windows.Forms.Label();
+            this.OptionsLabel = new System.Windows.Forms.Label();
             this.PointsLabel = new System.Windows.Forms.Label();
             this.QuestionText = new System.Windows.Forms.Label();
             this.QuestionLabel = new System.Windows.Forms.Label();
@@ -40,7 +40,7 @@
             this.ExampleImageLinkLabel = new System.Windows.Forms.LinkLabel();
             this.PicturesPanel = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
-            this.AnswersPanel.SuspendLayout();
+            this.OptionsPanel.SuspendLayout();
             this.PicturesPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,8 +52,8 @@
             this.MainPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.MainPanel.Controls.Add(this.QuestionShortText);
-            this.MainPanel.Controls.Add(this.AnswersPanel);
-            this.MainPanel.Controls.Add(this.AnswersLabel);
+            this.MainPanel.Controls.Add(this.OptionsPanel);
+            this.MainPanel.Controls.Add(this.OptionsLabel);
             this.MainPanel.Controls.Add(this.PointsLabel);
             this.MainPanel.Controls.Add(this.QuestionText);
             this.MainPanel.Controls.Add(this.QuestionLabel);
@@ -62,7 +62,7 @@
             this.MainPanel.MinimumSize = new System.Drawing.Size(400, 0);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.MainPanel.Size = new System.Drawing.Size(592, 147);
+            this.MainPanel.Size = new System.Drawing.Size(592, 118);
             this.MainPanel.TabIndex = 0;
             // 
             // QuestionShortText
@@ -81,17 +81,17 @@
             this.QuestionShortText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.QuestionShortText.Visible = false;
             // 
-            // AnswersPanel
+            // OptionsPanel
             // 
-            this.AnswersPanel.AutoSize = true;
-            this.AnswersPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AnswersPanel.Controls.Add(this.ExampleAnswerText);
-            this.AnswersPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AnswersPanel.Location = new System.Drawing.Point(3, 109);
-            this.AnswersPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.AnswersPanel.Name = "AnswersPanel";
-            this.AnswersPanel.Size = new System.Drawing.Size(586, 35);
-            this.AnswersPanel.TabIndex = 3;
+            this.OptionsPanel.AutoSize = true;
+            this.OptionsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.OptionsPanel.Controls.Add(this.ExampleAnswerText);
+            this.OptionsPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OptionsPanel.Location = new System.Drawing.Point(3, 80);
+            this.OptionsPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.OptionsPanel.Name = "OptionsPanel";
+            this.OptionsPanel.Size = new System.Drawing.Size(586, 35);
+            this.OptionsPanel.TabIndex = 3;
             // 
             // ExampleAnswerText
             // 
@@ -103,20 +103,20 @@
             this.ExampleAnswerText.Name = "ExampleAnswerText";
             this.ExampleAnswerText.Size = new System.Drawing.Size(586, 35);
             this.ExampleAnswerText.TabIndex = 7;
-            this.ExampleAnswerText.Text = "Текст первого ответа бла бла бла бла";
+            this.ExampleAnswerText.Text = "Текст первого варианта ответа бла бла бла бла";
             this.ExampleAnswerText.Visible = false;
             // 
-            // AnswersLabel
+            // OptionsLabel
             // 
-            this.AnswersLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AnswersLabel.Font = new System.Drawing.Font("Montserrat SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AnswersLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(253)))), ((int)(((byte)(49)))));
-            this.AnswersLabel.Location = new System.Drawing.Point(3, 84);
-            this.AnswersLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.AnswersLabel.Name = "AnswersLabel";
-            this.AnswersLabel.Size = new System.Drawing.Size(586, 25);
-            this.AnswersLabel.TabIndex = 6;
-            this.AnswersLabel.Text = "Ответ(ы):";
+            this.OptionsLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OptionsLabel.Font = new System.Drawing.Font("Montserrat SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.OptionsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(176)))), ((int)(((byte)(31)))));
+            this.OptionsLabel.Location = new System.Drawing.Point(3, 55);
+            this.OptionsLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.OptionsLabel.Name = "OptionsLabel";
+            this.OptionsLabel.Size = new System.Drawing.Size(586, 25);
+            this.OptionsLabel.TabIndex = 6;
+            this.OptionsLabel.Text = "Варианты ответов:";
             // 
             // PointsLabel
             // 
@@ -139,9 +139,9 @@
             this.QuestionText.Location = new System.Drawing.Point(3, 28);
             this.QuestionText.Margin = new System.Windows.Forms.Padding(3);
             this.QuestionText.Name = "QuestionText";
-            this.QuestionText.Size = new System.Drawing.Size(586, 56);
+            this.QuestionText.Size = new System.Drawing.Size(586, 27);
             this.QuestionText.TabIndex = 4;
-            this.QuestionText.Text = "Текст вопроса бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла";
+            this.QuestionText.Text = "Текст вопроса бла бла бла бла";
             this.QuestionText.Paint += new System.Windows.Forms.PaintEventHandler(this.QuestionText_Paint);
             // 
             // QuestionLabel
@@ -177,6 +177,7 @@
             // 
             this.ExampleImageLinkLabel.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.ExampleImageLinkLabel.AutoEllipsis = true;
+            this.ExampleImageLinkLabel.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.ExampleImageLinkLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExampleImageLinkLabel.Font = new System.Drawing.Font("Montserrat", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ExampleImageLinkLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(62)))), ((int)(((byte)(255)))));
@@ -203,7 +204,7 @@
             this.PicturesPanel.Size = new System.Drawing.Size(191, 26);
             this.PicturesPanel.TabIndex = 3;
             // 
-            // QuestionAnswerControl
+            // QuestionView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -214,13 +215,13 @@
             this.Controls.Add(this.QuestionCollapsedCheckBox);
             this.Controls.Add(this.MainPanel);
             this.MinimumSize = new System.Drawing.Size(540, 0);
-            this.Name = "QuestionAnswerControl";
+            this.Name = "QuestionView";
             this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(816, 160);
+            this.Size = new System.Drawing.Size(816, 131);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.QuestionAnswerControl_Paint);
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
-            this.AnswersPanel.ResumeLayout(false);
+            this.OptionsPanel.ResumeLayout(false);
             this.PicturesPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -235,9 +236,9 @@
         private System.Windows.Forms.Label PointsLabel;
         private System.Windows.Forms.Label QuestionText;
         private System.Windows.Forms.Label QuestionLabel;
-        private System.Windows.Forms.Label AnswersLabel;
+        private System.Windows.Forms.Label OptionsLabel;
         private System.Windows.Forms.Label ExampleAnswerText;
-        private System.Windows.Forms.Panel AnswersPanel;
+        private System.Windows.Forms.Panel OptionsPanel;
         private System.Windows.Forms.Label QuestionShortText;
         private System.Windows.Forms.Panel PicturesPanel;
     }

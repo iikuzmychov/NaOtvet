@@ -6,19 +6,21 @@ using System.Windows.Forms;
 
 namespace NaOtvet
 {
-    public partial class QuestionsAnswersForm : Form
+    public partial class QuestionsViewForm : Form
     {
         private TestQuestion[] questions;
-        private List<QuestionAnswerControl> questionAnswerControls = new List<QuestionAnswerControl>();
+        private List<QuestionView> questionsViewControls = new List<QuestionView>();
+        private bool showOnlyAnswers;
 
-        public QuestionsAnswersForm(TestQuestion[] testQuestions)
+        public QuestionsViewForm(TestQuestion[] questions, bool showOnlyAnswers)
         {
             InitializeComponent();
 
-            questions = testQuestions;
+            this.questions = questions;
+            this.showOnlyAnswers = showOnlyAnswers;
         }
 
-        public QuestionsAnswersForm(List<TestQuestion> testQuestions) : this(testQuestions.ToArray()) { }
+        public QuestionsViewForm(List<TestQuestion> questions, bool showOnlyAnswers) : this(questions.ToArray(), showOnlyAnswers) { }
 
 
         private void QuestionsAnswersForm_Load(object sender, EventArgs e)
@@ -40,9 +42,10 @@ namespace NaOtvet
             foreach (var question in questions)
             {
                 var pictures        = new List<UrlDescription>();
-                var answersTexts    = new List<string>();
+                var optionsTexts    = new List<string>();
                 var questionText    = HelpClass.HtmlToPlainText(question.HtmlText);
                 var points          = HelpClass.PointsToSystem(question.Points, system, 12);
+                var options         = showOnlyAnswers ? question.Answers : question.Options;
 
                 if (question.ImageUrl != null)
                 {
@@ -50,33 +53,36 @@ namespace NaOtvet
                     pictures.Add(picture);
                 }
 
-                if (question.Answers != null)
+                if (options != null)
                 {
-                    for (int i = 0; i < question.Answers.Count; i++)
+                    for (int i = 0; i < options.Count; i++)
                     {
-                        var answer = question.Answers[i];
-                        var answerText = HelpClass.HtmlToPlainText(answer.HtmlText);
+                        var option = options[i];
+                        var optionText = HelpClass.HtmlToPlainText(option.HtmlText);
 
-                        if (answer.ImageUrl != null)
+                        if (option.ImageUrl != null)
                         {
-                            var pictureDescription = question.Answers.Count > 1 ? $"Рис. ответа {i + 1}" : "Рис. ответа";
-                            var picture = new UrlDescription(answer.ImageUrl, pictureDescription);
+                            var pictureBaseText = showOnlyAnswers ? "Рис. ответа" : "Рис. варианта";
+                            var pictureDescription = options.Count > 1 ? $"{pictureBaseText} {i + 1}" : pictureBaseText;
+                            var picture = new UrlDescription(option.ImageUrl, pictureDescription);
                             pictures.Add(picture);
 
-                            if (string.IsNullOrWhiteSpace(answerText))
-                                answerText = $"({pictureDescription})";
+                            if (string.IsNullOrWhiteSpace(optionText))
+                                optionText = $"({pictureDescription})";
                         }
 
-                        answersTexts.Add(answerText);
+                        optionsTexts.Add(optionText);
                     }
                 }
 
-                var control = new QuestionAnswerControl(questionText, points, answersTexts, pictures)
+                var control = new QuestionView(questionText, Math.Round(points, 2), optionsTexts, pictures)
                 {
+                    OptionsAreAnswers = showOnlyAnswers,
                     Dock = DockStyle.Top
                 };
+
                 control.OnControlStateChanged += OnQuestionAnswerControlStateChanged;
-                questionAnswerControls.Add(control);
+                questionsViewControls.Add(control);
 
                 QuestionsAnswersPanel.Controls.Add(control);
                 control.BringToFront();
@@ -86,15 +92,15 @@ namespace NaOtvet
         private void FilterAnswersQuestionsControls(string text)
         {
             var query = text.ToLower().Trim();
-            var findedControls = questionAnswerControls
+            var findedControls = questionsViewControls
                 .Where(control =>
                     control.Question.ToLower().Contains(query) ||
-                    control.Answers.Any(answer => answer.ToLower().Contains(query)));
+                    control.Options.Any(answer => answer.ToLower().Contains(query)));
 
             if (OnlyNotCollapsedQuestionsCheckBox.Checked)
                 findedControls = findedControls.Where(control => control.IsMinimized == false);
 
-            questionAnswerControls.ForEach(control => control.Visible = findedControls.Contains(control));
+            questionsViewControls.ForEach(control => control.Visible = findedControls.Contains(control));
 
             if (findedControls.Count() == 0)
             {

@@ -7,56 +7,24 @@ using System.Windows.Forms;
 
 namespace NaOtvet
 {
-    public partial class QuestionAnswerControl : UserControl
+    public partial class QuestionView : UserControl
     {
         private readonly Size mainPanelStartSize;
         private readonly Size formStartSize;
 
         private string question;
         private decimal points;
-        private bool isMinimized;
+        private bool isMinimized = false;
+        private bool optionsAreAnswers = false;
 
-        private List<Label> answersLabels = new List<Label>();
-        private ObservableCollection<string> answers = new ObservableCollection<string>();
+        private List<Label> optionsLabels = new List<Label>();
+        private ObservableCollection<string> options = new ObservableCollection<string>();
 
         private List<LinkLabel> picturesLinksLabels = new List<LinkLabel>();
         private ObservableCollection<UrlDescription> pictures = new ObservableCollection<UrlDescription>();
 
         public EventHandler<ControlStateChangedEventArgs> OnControlStateChanged;
 
-        public bool IsMinimized
-        {
-            get
-            {
-                return isMinimized;
-            }
-
-            set
-            {
-                isMinimized = value;
-
-                if (isMinimized)
-                {
-                    QuestionCollapsedCheckBox.CheckState = CheckState.Checked;                    
-                    QuestionShortText.Visible = true;
-                    QuestionText.Visible    = false;
-                    AnswersLabel.Visible    = false;
-                    AnswersPanel.Visible    = false;
-                    PicturesPanel.Visible   = false;
-                }
-                else
-                {
-                    QuestionCollapsedCheckBox.CheckState = CheckState.Unchecked;
-                    QuestionShortText.Visible   = false;
-                    QuestionText.Visible    = true;
-                    AnswersLabel.Visible    = true;
-                    AnswersPanel.Visible    = true;
-                    PicturesPanel.Visible   = true;
-                }
-
-                OnControlStateChanged?.Invoke(this, new ControlStateChangedEventArgs(isMinimized));
-            }
-        }
         public string Question
         {
             get
@@ -105,11 +73,67 @@ namespace NaOtvet
                 }
             }
         }
-        public ObservableCollection<string> Answers
+        public bool IsMinimized
         {
             get
             {
-                return answers;
+                return isMinimized;
+            }
+
+            set
+            {
+                isMinimized = value;
+
+                if (isMinimized)
+                {
+                    QuestionCollapsedCheckBox.CheckState = CheckState.Checked;
+                    QuestionShortText.Visible = true;
+                    QuestionText.Visible = false;
+                    OptionsLabel.Visible = false;
+                    OptionsPanel.Visible = false;
+                    PicturesPanel.Visible = false;
+                }
+                else
+                {
+                    QuestionCollapsedCheckBox.CheckState = CheckState.Unchecked;
+                    QuestionShortText.Visible = false;
+                    QuestionText.Visible = true;
+                    OptionsLabel.Visible = true;
+                    OptionsPanel.Visible = true;
+                    PicturesPanel.Visible = true;
+                }
+
+                OnControlStateChanged?.Invoke(this, new ControlStateChangedEventArgs(isMinimized));
+            }
+        }
+        public bool OptionsAreAnswers
+        {
+            get
+            {
+                return optionsAreAnswers;
+            }
+
+            set
+            {
+                optionsAreAnswers = value;
+
+                if (optionsAreAnswers)
+                {
+                    OptionsLabel.Text = "Ответы:";
+                    OptionsLabel.ForeColor = Color.FromArgb(74, 253, 49);
+                }
+                else
+                {
+                    OptionsLabel.Text = "Варианты ответов:";
+                    OptionsLabel.ForeColor = Color.FromArgb(254, 176, 31);                    
+                }
+            }
+        }
+        public ObservableCollection<string> Options
+        {
+            get
+            {
+                return options;
             }
 
             set
@@ -117,12 +141,12 @@ namespace NaOtvet
                 if (value is null)
                     throw new ArgumentNullException();
 
-                answers.Clear();
-                AnswersPanel.Controls.Clear();
-                answersLabels.Clear();
+                options.Clear();
+                OptionsPanel.Controls.Clear();
+                optionsLabels.Clear();
 
                 foreach (string answer in value)
-                    answers.Add(answer);
+                    options.Add(answer);
             }
         }
         public ObservableCollection<UrlDescription> Pictures
@@ -147,14 +171,14 @@ namespace NaOtvet
         }
 
 
-        public QuestionAnswerControl()
+        public QuestionView()
         {
             InitializeComponent();
 
             formStartSize = this.Size;
             mainPanelStartSize = MainPanel.Size;
 
-            Answers.CollectionChanged += Answers_CollectionChanged;
+            Options.CollectionChanged += Options_CollectionChanged;
             Pictures.CollectionChanged += Pictures_CollectionChanged;
 
             QuestionText.AutoSize = true;
@@ -163,25 +187,25 @@ namespace NaOtvet
             Points = 1;
         }
 
-        public QuestionAnswerControl(string question, decimal points, string[] answers, UrlDescription[] pictures) : this()
+        public QuestionView(string question, decimal points, string[] options, UrlDescription[] pictures) : this()
         {
             Question    = question;
             Points      = points;
-            Answers     = new ObservableCollection<string>(answers);
+            Options     = new ObservableCollection<string>(options);
             Pictures    = new ObservableCollection<UrlDescription>(pictures);
         }
 
-        public QuestionAnswerControl(string question, decimal points, List<string> answers, List<UrlDescription> pictures) : this()
+        public QuestionView(string question, decimal points, List<string> options, List<UrlDescription> pictures) : this()
         {
-            if (answers is null)
-                throw new ArgumentNullException(nameof(answers));
+            if (options is null)
+                throw new ArgumentNullException(nameof(options));
 
             if (pictures is null)
                 throw new ArgumentNullException(nameof(pictures));
 
             Question    = question;
             Points      = points;
-            Answers     = new ObservableCollection<string>(answers);
+            Options     = new ObservableCollection<string>(options);
             Pictures    = new ObservableCollection<UrlDescription>(pictures);
         }
 
@@ -275,68 +299,68 @@ namespace NaOtvet
         }
 
 
-        private void Answers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Options_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:                    
-                    AddAnswer((string)e.NewItems[0]);
+                    AddOption((string)e.NewItems[0]);
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    answersLabels[e.OldStartingIndex].Text = (string)e.NewItems[0];
+                    optionsLabels[e.OldStartingIndex].Text = (string)e.NewItems[0];
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    AnswersPanel.Controls.Remove(answersLabels[e.OldStartingIndex]);
-                    answersLabels.RemoveAt(e.OldStartingIndex);
+                    OptionsPanel.Controls.Remove(optionsLabels[e.OldStartingIndex]);
+                    optionsLabels.RemoveAt(e.OldStartingIndex);
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    AnswersPanel.Controls.Clear();
-                    answersLabels.Clear();
+                    OptionsPanel.Controls.Clear();
+                    optionsLabels.Clear();
                     break;
 
                 case NotifyCollectionChangedAction.Move:
-                    var movedLabel = answersLabels[e.OldStartingIndex];                    
-                    answersLabels.RemoveAt(e.OldStartingIndex);
-                    answersLabels.Insert(e.NewStartingIndex, movedLabel);
-                    AnswersPanel.Controls.SetChildIndex(movedLabel, e.NewStartingIndex);
+                    var movedLabel = optionsLabels[e.OldStartingIndex];                    
+                    optionsLabels.RemoveAt(e.OldStartingIndex);
+                    optionsLabels.Insert(e.NewStartingIndex, movedLabel);
+                    OptionsPanel.Controls.SetChildIndex(movedLabel, e.NewStartingIndex);
                     break;
             }
         }
 
-        private Label AddAnswer(string text)
+        private Label AddOption(string text)
         {
             if (text is null)
                 throw new ArgumentNullException(nameof(text));
 
-            Label answerLabel;
+            Label optionLabel;
 
-            if (answersLabels.Count > 0)
-                answerLabel = ExampleAnswerText.Clone();
+            if (optionsLabels.Count > 0)
+                optionLabel = ExampleAnswerText.Clone();
             else
-                answerLabel = ExampleAnswerText;
+                optionLabel = ExampleAnswerText;
 
-            answerLabel.Text        = text;
-            answerLabel.Visible     = true;
-            answerLabel.AutoSize    = true;
-            answerLabel.Paint += AnswerText_Paint;
+            optionLabel.Text        = text;
+            optionLabel.Visible     = true;
+            optionLabel.AutoSize    = true;
+            optionLabel.Paint += OptionText_Paint;
                         
-            answersLabels.Add(answerLabel);
+            optionsLabels.Add(optionLabel);
 
-            if (AnswersPanel.Controls.Contains(answerLabel) == false)
-                AnswersPanel.Controls.Add(answerLabel);
+            if (OptionsPanel.Controls.Contains(optionLabel) == false)
+                OptionsPanel.Controls.Add(optionLabel);
 
-            answerLabel.BringToFront();
+            optionLabel.BringToFront();
 
-            return answerLabel;
+            return optionLabel;
         }
 
-        private void AnswerText_Paint(object sender, PaintEventArgs e)
+        private void OptionText_Paint(object sender, PaintEventArgs e)
         {
             var label = sender as Label;
-            label.MaximumSize = new Size(AnswersPanel.ClientSize.Width, 0);
+            label.MaximumSize = new Size(OptionsPanel.ClientSize.Width, 0);
         }
     }
 }

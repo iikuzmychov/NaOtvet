@@ -38,7 +38,7 @@
             // 
             // PictureView
             // 
-            this.PictureView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.PictureView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.PictureView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureView.Location = new System.Drawing.Point(5, 5);
             this.PictureView.Name = "PictureView";
@@ -49,6 +49,7 @@
             // 
             // DescriptionText
             // 
+            this.DescriptionText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.DescriptionText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DescriptionText.Font = new System.Drawing.Font("Montserrat", 12F);
             this.DescriptionText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
@@ -73,7 +74,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(512, 483);
             this.Controls.Add(this.DescriptionPanel);
             this.Controls.Add(this.PictureView);

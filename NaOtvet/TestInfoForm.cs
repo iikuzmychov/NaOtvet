@@ -19,23 +19,60 @@ namespace NaOtvet
             InitializeComponent();
         }
 
-        private void TestInfoForm_Load(object sender, System.EventArgs e)
+        private void TestInfoForm_Load(object sender, EventArgs e)
         {
             UpdateInfo();
         }
 
         private void UpdateInfo()
         {
-            TestNameText.Text = testSession.TestName != null ? testSession.TestName : "-";
+            if (testSession.TestName != null)
+            {
+                TestNameText.Text = testSession.TestName;
+            }
+            else
+            {
+                TestNameText.Text = "-";
+
+                TestNameText.Enabled = false;
+                TestNameLabel.Enabled = false;
+            }
 
             if (testSession.CreatorId.HasValue)
+            {
                 TeacherAccountLink.Click += (sender, args) => Process.Start(NaUrokClient.GetProfileUrl(testSession.CreatorId.Value));
+            }
             else
+            {
                 TeacherAccountLink.Enabled = false;
+                TeacherLabel.Enabled = false;
+            }
 
-            CreateDateTimeText.Text = testSession.TestStartDateTime.HasValue ? testSession.TestStartDateTime.Value.ToString() : "-";
-            EndDateTimeText.Text    = testSession.TestEndDateTime.HasValue ? testSession.TestEndDateTime.Value.ToString() : "-";
-            StartDateTimeText.Text  = testSession.StartDateTime.ToString();
+            if (testSession.TestStartDateTime.HasValue)
+            {
+                CreateDateTimeText.Text = testSession.TestStartDateTime.Value.ToString();
+            }
+            else
+            {
+                CreateDateTimeText.Text = "-";
+
+                CreateDateTimeText.Enabled = false;
+                CreateDateTimeLabel.Enabled = false;
+            }
+
+            if (testSession.TestEndDateTime.HasValue)
+            {
+                EndDateTimeText.Text = testSession.TestEndDateTime.Value.ToString();
+            }
+            else
+            {
+                EndDateTimeText.Text = "-";
+
+                EndDateTimeText.Enabled = false;
+                EndDateTimeLabel.Enabled = false;
+            }
+
+            StartDateTimeText.Text = testSession.StartDateTime.ToString();
 
             if (testSession.Duration.HasValue)
             {
@@ -49,9 +86,17 @@ namespace NaOtvet
             else
             {
                 DurationText.Text = "-";
+
+                DurationText.Enabled = false;
+                DurationLabel.Enabled = false;
             }
 
             QuestionsCountText.Text = testSession.TestQuestionsCount.ToString();
+        }
+
+        private void ShowQuestionsButton_Click(object sender, EventArgs e)
+        {
+            new QuestionsViewForm(testSession.Questions, false).Show();
         }
     }
 }

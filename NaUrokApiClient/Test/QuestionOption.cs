@@ -12,8 +12,9 @@ namespace NaUrokApiClient
         public object Clone()
         {
             var option = new QuestionOption();
-            option.Id       = option.Id;
-            option.HtmlText = option.HtmlText;
+            option.Id       = Id;
+            option.HtmlText = HtmlText;
+            option.ImageUrl = ImageUrl;
             option.Question = Question;
 
             return option;

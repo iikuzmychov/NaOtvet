@@ -292,6 +292,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="googlef589caf74f80388f.html" />
     <Content Include="index.html" />
     <Content Include="naurok_assets\css\site.full.css" />
     <Content Include="naurok_assets\js\app_test.test.js" />
