@@ -40,6 +40,8 @@
             // 
             this.PictureView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.PictureView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PictureView.Image = global::NaOtvet.Properties.Resources.loadingImage;
+            this.PictureView.InitialImage = null;
             this.PictureView.Location = new System.Drawing.Point(5, 5);
             this.PictureView.Name = "PictureView";
             this.PictureView.Size = new System.Drawing.Size(502, 473);
@@ -84,6 +86,8 @@
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Просмотр изображения";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PictureViewForm_FormClosed);
+            this.Load += new System.EventHandler(this.PictureViewForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PictureView)).EndInit();
             this.DescriptionPanel.ResumeLayout(false);
             this.ResumeLayout(false);

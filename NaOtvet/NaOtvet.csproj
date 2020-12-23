@@ -63,6 +63,7 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,70 +76,79 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlStateChangedEventArgs.cs" />
+    <Compile Include="Controls\QuestionView\ControlStateChangedEventArgs.cs" />
     <Compile Include="Controls\CustomizableLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\CustomizableButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UrlDescription.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="HelpClass.cs" />
-    <Compile Include="PictureViewForm.cs">
+    <Compile Include="Forms\PictureViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PictureViewForm.Designer.cs">
+    <Compile Include="Forms\PictureViewForm.Designer.cs">
       <DependentUpon>PictureViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadingForm.cs">
+    <Compile Include="Forms\LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoadingForm.Designer.cs">
+    <Compile Include="Forms\LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OldVersionForm.cs">
+    <Compile Include="Forms\OldVersionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OldVersionForm.Designer.cs">
+    <Compile Include="Forms\OldVersionForm.Designer.cs">
       <DependentUpon>OldVersionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\QuestionView.cs">
+    <Compile Include="Controls\QuestionView\QuestionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\QuestionView.Designer.cs">
+    <Compile Include="Controls\QuestionView\QuestionView.Designer.cs">
       <DependentUpon>QuestionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuestionsViewForm.cs">
+    <Compile Include="Forms\QuestionsViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuestionsViewForm.Designer.cs">
+    <Compile Include="Forms\QuestionsViewForm.Designer.cs">
       <DependentUpon>QuestionsViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TestInfoForm.cs">
+    <Compile Include="Forms\TestInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestInfoForm.Designer.cs">
+    <Compile Include="Forms\TestInfoForm.Designer.cs">
       <DependentUpon>TestInfoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="PictureViewForm.resx">
+    <EmbeddedResource Include="Forms\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PictureViewForm.resx">
       <DependentUpon>PictureViewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoadingForm.resx">
+    <EmbeddedResource Include="Forms\LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OldVersionForm.resx">
+    <EmbeddedResource Include="Forms\OldVersionForm.resx">
       <DependentUpon>OldVersionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -151,14 +161,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Controls\QuestionView.resx">
+    <EmbeddedResource Include="Controls\QuestionView\QuestionView.resx">
       <DependentUpon>QuestionView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuestionsViewForm.resx">
+    <EmbeddedResource Include="Forms\QuestionsViewForm.resx">
       <DependentUpon>QuestionsViewForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TestInfoForm.resx">
+    <EmbeddedResource Include="Forms\TestInfoForm.resx">
       <DependentUpon>TestInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -179,6 +189,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NaurokAnswers_1024x1024.ico" />
+    <None Include="Resources\QuestionImage.png" />
+    <None Include="Resources\WarningImage.png" />
+    <None Include="Resources\InfoImage.png" />
+    <None Include="Resources\ErrorImage.png" />
+    <None Include="Resources\loadingImage.png" />
     <None Include="Resources\NaurokAnswers_48x48.ico" />
     <None Include="Resources\NaurokAnswers_1024x1024.ico" />
   </ItemGroup>
@@ -212,5 +227,6 @@
       <Name>NaUrokApiClient</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

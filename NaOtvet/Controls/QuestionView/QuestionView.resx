@@ -117,29 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ErrorImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ErrorImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InfoImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\InfoImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="kuzcode_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kuzcode лого.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="loadingImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loadingImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NaurokAnswers_1024x1024" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NaurokAnswers_1024x1024.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NaurokAnswers_48x48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NaurokAnswers_48x48.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="QuestionImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\QuestionImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="WarningImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WarningImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

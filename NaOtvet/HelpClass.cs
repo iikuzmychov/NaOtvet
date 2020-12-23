@@ -66,12 +66,19 @@ namespace NaOtvet
 
         public static Image DownloadImage(string url)
         {
-            byte[] data = new WebClient().DownloadData(url);
+            var stream = DownloadImageAsStream(url);
 
-            using (var memoryStream = new MemoryStream(data))
+            using (stream)
             {
-                return Image.FromStream(memoryStream);
+                return Image.FromStream(stream);
             }
+        }
+        public static Stream DownloadImageAsStream(string url)
+        {
+            byte[] data = new WebClient().DownloadData(url);
+            var memoryStream = new MemoryStream(data);
+
+            return memoryStream;
         }
 
         public static string HtmlToPlainText(string html)

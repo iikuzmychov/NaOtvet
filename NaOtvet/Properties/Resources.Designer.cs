@@ -63,9 +63,39 @@ namespace NaOtvet.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ErrorImage {
+            get {
+                object obj = ResourceManager.GetObject("ErrorImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap InfoImage {
+            get {
+                object obj = ResourceManager.GetObject("InfoImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap kuzcode_logo {
             get {
                 object obj = ResourceManager.GetObject("kuzcode_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loadingImage {
+            get {
+                object obj = ResourceManager.GetObject("loadingImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -87,6 +117,26 @@ namespace NaOtvet.Properties {
             get {
                 object obj = ResourceManager.GetObject("NaurokAnswers_48x48", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QuestionImage {
+            get {
+                object obj = ResourceManager.GetObject("QuestionImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WarningImage {
+            get {
+                object obj = ResourceManager.GetObject("WarningImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

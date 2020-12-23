@@ -293,8 +293,8 @@ namespace NaOtvet
         {
             if (e.Button == MouseButtons.Left)
             {
-                var viewForm = new PictureViewForm((string)e.Link.LinkData, e.Link.Description);
-                viewForm.ShowDialog();
+                var oictureViewForm = new PictureViewForm((string)e.Link.LinkData, e.Link.Description);
+                oictureViewForm.ShowDialog();
             }
         }
 

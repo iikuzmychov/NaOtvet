@@ -59,7 +59,7 @@ namespace NaOtvet
             catch (Exception)
             {
                 loadingForm.Invoke(new Action(loadingForm.Close));
-                MessageBox.Show("Невозможно загрузить данные, возможно у вас нет доступа к интернету.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ThrowFatalError("Невозможно загрузить данные, возможно у вас нет доступа к интернету");
 
                 Environment.Exit(1);
             }
@@ -71,17 +71,17 @@ namespace NaOtvet
             TopMost = false;
 
             if (HelpClass.IsUserAdministrator() == false)
-                MessageBox.Show("Если вы хотите, что бы программа работала быстрее, можете запустить её с правами администратора. Ей будет задан максимальный приоритет.", "Скорость работы", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageForm.Show("Если вы хотите, что бы программа работала быстрее, можете запустить её с правами администратора. Ей будет задан максимальный приоритет", "Скорость работы");
             else
                 Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
         }
-
+        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (finderSystem is null || finderSystem.IsStoped == true)
                 return;
-
-            var confirmationBoxResult = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение", MessageBoxButtons.YesNo);
+            
+            var confirmationBoxResult = MessageForm.Show("Вы уверены, что хотите выйти?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirmationBoxResult == DialogResult.Yes)
                 Stop();
@@ -135,7 +135,7 @@ namespace NaOtvet
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-            var confirmationBoxResult = MessageBox.Show("Вы уверены, что хотите остановить работу программы?", "Подтверждение", MessageBoxButtons.YesNo);
+            var confirmationBoxResult = MessageForm.Show("Вы уверены, что хотите остановить работу программы?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             
             if (confirmationBoxResult == DialogResult.Yes)
                 Stop();
@@ -271,10 +271,12 @@ namespace NaOtvet
 
         private void ThrowFatalError(string errorText)
         {
+            TestInfoButton.Enabled = false;
+
             Stop();
             SystemSounds.Exclamation.Play();
 
-            MessageBox.Show(errorText, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageForm.Show(errorText, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -282,7 +284,7 @@ namespace NaOtvet
         {
             if (HelpClass.IsInternetConnectionAvailable() == false)
             {
-                ThrowFatalError("Нет доступа к интернету.");
+                ThrowFatalError("Нет доступа к интернету");
                 return;
             }
 
@@ -292,7 +294,7 @@ namespace NaOtvet
             }
             catch (AnsweredQuestionException)
             {
-                ThrowFatalError("Вы ответели на некоторые вопросы теста, по-этому программа не сможет найти ответы.");
+                ThrowFatalError("Вы ответели на некоторые вопросы теста, по-этому программа не сможет найти ответы");
             }
             catch
             {
@@ -309,16 +311,16 @@ namespace NaOtvet
                 var timeLeft = session.EndDateTime.Value - DateTime.Now;
                 TestTimeLeftText.Text = timeLeft.ToString(@"hh\:mm\:ss");
 
-                /*if (timeLeft.TotalMinutes <= 5 && session.Duration.Value.TotalMinutes >= 5)
+                if (timeLeft.TotalMinutes <= 5 && session.Duration.Value.TotalMinutes >= 5)
                 {
-                    TestTimeLeftText.ForeColor = Color.Red;
-                }*/
+                    TestTimeLeftText.ForeColor = Color.FromArgb(255, 36, 36);
+                }
             }
             else
             {
                 splitContainer2.Panel2.Enabled = false;
                 TestTimer.Stop();
-                MessageBox.Show("Время прохождения теста истекло. Советуем подождать, пока программа найдёт ответы, что бы сохранить их для других учеников.", "Тест завершён", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageForm.Show("Время прохождения теста истекло. Советуем подождать, пока программа найдёт ответы, что бы сохранить их для других учеников", "Тест завершён", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
