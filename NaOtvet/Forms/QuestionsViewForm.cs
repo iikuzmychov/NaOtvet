@@ -23,19 +23,19 @@ namespace NaOtvet
         public QuestionsViewForm(List<TestQuestion> questions, bool showOnlyAnswers) : this(questions.ToArray(), showOnlyAnswers) { }
 
 
-        private void QuestionsAnswersForm_Load(object sender, EventArgs e)
+        private void QuestionsViewForm_Load(object sender, EventArgs e)
         {
-            GenerateQuestionAnswerControls();
+            GenerateQuestionsViewsControls();
         }
 
-        private void QuestionsAnswersForm_Shown(object sender, EventArgs e)
+        private void QuestionsViewForm_Shown(object sender, EventArgs e)
         {
             ActiveControl = null; // убрать фокус
-            FilterAnswersQuestionsControls(SearchQueryText.Text);
+            FilterQuestionsViewsControls(SearchQueryText.Text);
         }
 
 
-        private void GenerateQuestionAnswerControls()
+        private void GenerateQuestionsViewsControls()
         {
             decimal system = questions.Sum(question => question.Points); // максимальная оценка
 
@@ -43,7 +43,7 @@ namespace NaOtvet
             {
                 var pictures        = new List<UrlDescription>();
                 var optionsTexts    = new List<string>();
-                var questionText    = HelpClass.HtmlToPlainText(question.HtmlText);
+                var questionText    = HelpClass.HtmlToSmartPlainText(question.HtmlText);
                 var points          = HelpClass.PointsToSystem(question.Points, system, 12);
                 var options         = showOnlyAnswers ? question.Answers : question.Options;
 
@@ -58,7 +58,7 @@ namespace NaOtvet
                     for (int i = 0; i < options.Count; i++)
                     {
                         var option = options[i];
-                        var optionText = HelpClass.HtmlToPlainText(option.HtmlText);
+                        var optionText = HelpClass.HtmlToSmartPlainText(option.HtmlText);
 
                         if (option.ImageUrl != null)
                         {
@@ -79,17 +79,18 @@ namespace NaOtvet
                 {
                     OptionsAreAnswers = showOnlyAnswers,
                     Dock = DockStyle.Top
+                    
                 };
 
-                control.OnControlStateChanged += OnQuestionAnswerControlStateChanged;
+                control.OnControlStateChanged += OnQuestionViewControlStateChanged;
                 questionsViewControls.Add(control);
 
-                QuestionsAnswersPanel.Controls.Add(control);
+                QuestionsViewPanel.Controls.Add(control);
                 control.BringToFront();
             }
         }
 
-        private void FilterAnswersQuestionsControls(string text)
+        private void FilterQuestionsViewsControls(string text)
         {
             var query = text.ToLower().Trim();
             var findedControls = questionsViewControls
@@ -105,19 +106,18 @@ namespace NaOtvet
             if (findedControls.Count() == 0)
             {
                 NothingFindedLabel.Visible = true;
-                QuestionsAnswersPanel.AutoScroll = false;
+                QuestionsViewPanel.AutoScroll = false;
             }
             else
             {
                 NothingFindedLabel.Visible = false;
-                QuestionsAnswersPanel.AutoScroll = true;
+                QuestionsViewPanel.AutoScroll = true;
             }
         }
 
-
-        private void OnQuestionAnswerControlStateChanged(object sender, ControlStateChangedEventArgs e)
+        private void OnQuestionViewControlStateChanged(object sender, ControlStateChangedEventArgs e)
         {
-            FilterAnswersQuestionsControls(SearchQueryText.Text);
+            FilterQuestionsViewsControls(SearchQueryText.Text);
         }
 
         private void SearchQueryTextPanel_MouseClick(object sender, MouseEventArgs e)
@@ -135,12 +135,17 @@ namespace NaOtvet
         private void SearchQueryText_TextChanged(object sender, EventArgs e)
         {
             SearchQueryText.Text = SearchQueryText.Text.TrimStart();
-            FilterAnswersQuestionsControls(SearchQueryText.Text);
+            FilterQuestionsViewsControls(SearchQueryText.Text);
         }
 
         private void OnlyNotCollapsedQuestionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            FilterAnswersQuestionsControls(SearchQueryText.Text);
+            FilterQuestionsViewsControls(SearchQueryText.Text);
+        }
+
+        private void QuestionsViewPanel_Resize(object sender, EventArgs e)
+        {
+            QuestionsViewPanel.Refresh(); // костыли
         }
     }
 }

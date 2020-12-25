@@ -13,6 +13,12 @@ namespace NaOtvet
                 return form.ShowDialog();
         }
 
+        public static DialogResult Show(string text)
+        {
+            using (var form = new MessageForm(text))
+                return form.ShowDialog();
+        }
+
         public MessageForm(string text, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             InitializeComponent();
@@ -21,6 +27,15 @@ namespace NaOtvet
 
             MessageText.Text = text;
             Text = title;
+        }
+
+        public MessageForm(string text)
+        {
+            InitializeComponent();
+            SetButtons(MessageBoxButtons.OK);
+            SetPicture(MessageBoxIcon.Information);
+
+            MessageText.Text = text;
         }
 
         private void SetPicture(MessageBoxIcon icon)

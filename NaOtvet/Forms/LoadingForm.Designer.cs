@@ -96,7 +96,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(452, 183);
+            this.ClientSize = new System.Drawing.Size(464, 183);
             this.ControlBox = false;
             this.Controls.Add(this.PassedTimeText);
             this.Controls.Add(this.label3);
@@ -104,6 +104,8 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(470, 160);
             this.Name = "LoadingForm";
             this.Padding = new System.Windows.Forms.Padding(5);

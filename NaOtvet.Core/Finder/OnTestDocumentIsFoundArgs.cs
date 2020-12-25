@@ -6,13 +6,7 @@ namespace NaOtvet.Core
     public class OnTestDocumentIsFoundArgs : EventArgs
     {
         public int DocumentId { get; set; }
-        public TestQuestion[] Questions { get; set; }
-
-        public OnTestDocumentIsFoundArgs(int documentId, TestQuestion[] questions)
-        {
-            DocumentId = documentId;
-            Questions = questions;
-        }
+        public TestSession TestSession { get; set; }
 
         public OnTestDocumentIsFoundArgs(int documentId, TestSession testSession)
         {
@@ -20,10 +14,10 @@ namespace NaOtvet.Core
                 throw new ArgumentNullException(nameof(testSession));
 
             DocumentId = documentId;
-            Questions = testSession.Questions.ToArray();
+            TestSession = testSession;
         }
 
-        public OnTestDocumentIsFoundArgs(int documentId, TestSession testSession, FlashCard[] flashCards)
+        public OnTestDocumentIsFoundArgs(int documentId, TestSession testSession, FlashCard[] flashCards) : this(documentId, testSession)
         {
             if (testSession is null)
                 throw new ArgumentNullException(nameof(testSession));
@@ -34,10 +28,7 @@ namespace NaOtvet.Core
             if (testSession.IsCorrectFlashCards(flashCards) == false)
                 throw new ArgumentException("Incorrect flash-cards", nameof(flashCards));
 
-            testSession.SetAnswers(flashCards);
-
-            DocumentId = documentId;
-            Questions = testSession.Questions.ToArray();
+            TestSession.SetAnswers(flashCards);
         }
     }
 }

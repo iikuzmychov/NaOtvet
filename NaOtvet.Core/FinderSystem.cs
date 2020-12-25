@@ -39,9 +39,10 @@ namespace NaOtvet.Core
             testDocumentFinders = new List<TestDocumentFinder>();
             this.client = client;
 
-            ThreadsCount = threadsCount;
-            FinderIterationsCount = finderIterationsCount;
-            TestSessionUuId = testSessionUuId;
+            ThreadsCount            = threadsCount;
+            FinderIterationsCount   = finderIterationsCount;
+            TestSessionUuId         = testSessionUuId;
+            testSession             = client.GetTestSession(testSessionUuId);
         }
 
         public void Dispose()
@@ -49,11 +50,11 @@ namespace NaOtvet.Core
             if (testDocumentFinders != null)
             {
                 foreach (var finder in testDocumentFinders)
-                    finder.Dispose();
+                    finder?.Dispose();
             }
 
-            specialCasesTask.Dispose();
-            saveSessionTask.Dispose();
+            specialCasesTask?.Dispose();
+            saveSessionTask?.Dispose();
         }
 
         public TestSession GetTestSession()
@@ -289,8 +290,7 @@ namespace NaOtvet.Core
                     if (client.IsCorrectTestDocument(testSession, document.Id, out FlashCard[] flashCards))
                     {
                         CheckedDocumentsCount++;
-                        //Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, testSession, flashCards));
-                        Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, document.Questions.ToArray()));
+                        Finder_OnTestDocumentIsFound(this, new OnTestDocumentIsFoundArgs(document.Id, testSession, flashCards));
 
                         return true;
                     }

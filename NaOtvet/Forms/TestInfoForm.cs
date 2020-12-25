@@ -1,6 +1,7 @@
 ﻿using NaUrokApiClient;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace NaOtvet
@@ -29,6 +30,8 @@ namespace NaOtvet
             if (testSession.TestName != null)
             {
                 TestNameText.Text = testSession.TestName;
+
+                DefaultToolTip.SetToolTip(TestNameText, TestNameText.Text);
             }
             else
             {
@@ -97,6 +100,13 @@ namespace NaOtvet
         private void ShowQuestionsButton_Click(object sender, EventArgs e)
         {
             new QuestionsViewForm(testSession.Questions, false).Show();
+        }
+
+        private void DefaultToolTip_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
         }
     }
 }

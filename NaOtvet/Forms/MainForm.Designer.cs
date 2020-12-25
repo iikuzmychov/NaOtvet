@@ -32,8 +32,8 @@ namespace NaOtvet
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.LogText = new System.Windows.Forms.TextBox();
-            this.UuIdText = new System.Windows.Forms.TextBox();
+            this.LogText = new TextBox();
+            this.UuIdText = new TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.StartButton = new NaOtvet.CustomizableButton();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -544,7 +544,7 @@ namespace NaOtvet
             // 
             this.JoinNaurokLabel.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.JoinNaurokLabel.AutoSize = true;
-            this.JoinNaurokLabel.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.JoinNaurokLabel.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.JoinNaurokLabel.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.JoinNaurokLabel.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(62)))), ((int)(((byte)(255)))));
             this.JoinNaurokLabel.Location = new System.Drawing.Point(280, 10);
@@ -606,9 +606,9 @@ namespace NaOtvet
 
         #endregion
 
-        private System.Windows.Forms.TextBox LogText;
+        private TextBox LogText;
         private CustomizableButton StartButton;
-        private System.Windows.Forms.TextBox UuIdText;
+        private TextBox UuIdText;
         private CustomizableButton StopButton;
         private CustomizableLabel label1;
         private System.Windows.Forms.SplitContainer splitContainer1;

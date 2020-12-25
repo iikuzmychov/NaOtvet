@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestInfoForm));
             this.TestNameLabel = new NaOtvet.CustomizableLabel();
             this.TeacherLabel = new NaOtvet.CustomizableLabel();
@@ -44,12 +45,13 @@
             this.label9 = new NaOtvet.CustomizableLabel();
             this.StartDateTimeText = new NaOtvet.CustomizableLabel();
             this.ShowQuestionsButton = new System.Windows.Forms.Button();
+            this.DefaultToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // TestNameLabel
             // 
             this.TestNameLabel.AutoSize = true;
-            this.TestNameLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.TestNameLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.TestNameLabel.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TestNameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.TestNameLabel.Location = new System.Drawing.Point(8, 17);
@@ -62,7 +64,7 @@
             // TeacherLabel
             // 
             this.TeacherLabel.AutoSize = true;
-            this.TeacherLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.TeacherLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.TeacherLabel.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TeacherLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.TeacherLabel.Location = new System.Drawing.Point(8, 50);
@@ -75,7 +77,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.label3.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.label3.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.label3.Location = new System.Drawing.Point(8, 215);
@@ -88,7 +90,7 @@
             // CreateDateTimeLabel
             // 
             this.CreateDateTimeLabel.AutoSize = true;
-            this.CreateDateTimeLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.CreateDateTimeLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.CreateDateTimeLabel.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CreateDateTimeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.CreateDateTimeLabel.Location = new System.Drawing.Point(8, 83);
@@ -101,7 +103,7 @@
             // EndDateTimeLabel
             // 
             this.EndDateTimeLabel.AutoSize = true;
-            this.EndDateTimeLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.EndDateTimeLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.EndDateTimeLabel.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EndDateTimeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.EndDateTimeLabel.Location = new System.Drawing.Point(8, 116);
@@ -114,7 +116,7 @@
             // DurationLabel
             // 
             this.DurationLabel.AutoSize = true;
-            this.DurationLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.DurationLabel.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.DurationLabel.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DurationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.DurationLabel.Location = new System.Drawing.Point(8, 182);
@@ -128,7 +130,7 @@
             // 
             this.TestNameText.AutoEllipsis = true;
             this.TestNameText.AutoSize = true;
-            this.TestNameText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.TestNameText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.TestNameText.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TestNameText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.TestNameText.Location = new System.Drawing.Point(236, 17);
@@ -142,7 +144,7 @@
             // CreateDateTimeText
             // 
             this.CreateDateTimeText.AutoSize = true;
-            this.CreateDateTimeText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.CreateDateTimeText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.CreateDateTimeText.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CreateDateTimeText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.CreateDateTimeText.Location = new System.Drawing.Point(236, 83);
@@ -155,7 +157,7 @@
             // EndDateTimeText
             // 
             this.EndDateTimeText.AutoSize = true;
-            this.EndDateTimeText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.EndDateTimeText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.EndDateTimeText.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EndDateTimeText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.EndDateTimeText.Location = new System.Drawing.Point(236, 116);
@@ -168,7 +170,7 @@
             // QuestionsCountText
             // 
             this.QuestionsCountText.AutoSize = true;
-            this.QuestionsCountText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.QuestionsCountText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.QuestionsCountText.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.QuestionsCountText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.QuestionsCountText.Location = new System.Drawing.Point(236, 215);
@@ -181,7 +183,7 @@
             // DurationText
             // 
             this.DurationText.AutoSize = true;
-            this.DurationText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.DurationText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.DurationText.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DurationText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.DurationText.Location = new System.Drawing.Point(236, 182);
@@ -195,21 +197,21 @@
             // 
             this.TeacherAccountLink.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.TeacherAccountLink.AutoSize = true;
-            this.TeacherAccountLink.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.TeacherAccountLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TeacherAccountLink.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.TeacherAccountLink.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TeacherAccountLink.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(62)))), ((int)(((byte)(255)))));
-            this.TeacherAccountLink.Location = new System.Drawing.Point(236, 52);
+            this.TeacherAccountLink.Location = new System.Drawing.Point(236, 50);
             this.TeacherAccountLink.Margin = new System.Windows.Forms.Padding(3);
             this.TeacherAccountLink.Name = "TeacherAccountLink";
-            this.TeacherAccountLink.Size = new System.Drawing.Size(92, 25);
+            this.TeacherAccountLink.Size = new System.Drawing.Size(87, 27);
             this.TeacherAccountLink.TabIndex = 14;
             this.TeacherAccountLink.TabStop = true;
-            this.TeacherAccountLink.Text = "(ссылка)";
+            this.TeacherAccountLink.Text = "ссылка";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.label9.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.label9.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.label9.Location = new System.Drawing.Point(8, 149);
@@ -222,7 +224,7 @@
             // StartDateTimeText
             // 
             this.StartDateTimeText.AutoSize = true;
-            this.StartDateTimeText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.StartDateTimeText.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.StartDateTimeText.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.StartDateTimeText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.StartDateTimeText.Location = new System.Drawing.Point(236, 149);
@@ -241,13 +243,20 @@
             this.ShowQuestionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShowQuestionsButton.Font = new System.Drawing.Font("Montserrat", 12F);
             this.ShowQuestionsButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.ShowQuestionsButton.Location = new System.Drawing.Point(13, 251);
+            this.ShowQuestionsButton.Location = new System.Drawing.Point(8, 251);
             this.ShowQuestionsButton.Name = "ShowQuestionsButton";
             this.ShowQuestionsButton.Size = new System.Drawing.Size(315, 38);
             this.ShowQuestionsButton.TabIndex = 18;
             this.ShowQuestionsButton.Text = "Просмотреть вопросы";
             this.ShowQuestionsButton.UseVisualStyleBackColor = false;
             this.ShowQuestionsButton.Click += new System.EventHandler(this.ShowQuestionsButton_Click);
+            // 
+            // DefaultToolTip
+            // 
+            this.DefaultToolTip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.DefaultToolTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.DefaultToolTip.OwnerDraw = true;
+            this.DefaultToolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.DefaultToolTip_Draw);
             // 
             // TestInfoForm
             // 
@@ -256,7 +265,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(343, 297);
+            this.ClientSize = new System.Drawing.Size(331, 297);
             this.Controls.Add(this.ShowQuestionsButton);
             this.Controls.Add(this.StartDateTimeText);
             this.Controls.Add(this.label9);
@@ -303,5 +312,6 @@
         private CustomizableLabel label9;
         private CustomizableLabel StartDateTimeText;
         private System.Windows.Forms.Button ShowQuestionsButton;
+        private System.Windows.Forms.ToolTip DefaultToolTip;
     }
 }

@@ -85,10 +85,10 @@ namespace NaOtvet
             this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button2.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.Button2.Location = new System.Drawing.Point(126, 60);
+            this.Button2.Location = new System.Drawing.Point(127, 60);
             this.Button2.MinimumSize = new System.Drawing.Size(0, 40);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(117, 40);
+            this.Button2.Size = new System.Drawing.Size(118, 40);
             this.Button2.TabIndex = 12;
             this.Button2.Text = "Кнопка 2";
             this.Button2.UseVisualStyleBackColor = false;
@@ -103,10 +103,10 @@ namespace NaOtvet
             this.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button3.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.Button3.Location = new System.Drawing.Point(249, 60);
+            this.Button3.Location = new System.Drawing.Point(251, 60);
             this.Button3.MinimumSize = new System.Drawing.Size(0, 40);
             this.Button3.Name = "Button3";
-            this.Button3.Size = new System.Drawing.Size(120, 40);
+            this.Button3.Size = new System.Drawing.Size(118, 40);
             this.Button3.TabIndex = 10;
             this.Button3.Text = "Кнопка 3";
             this.Button3.UseVisualStyleBackColor = false;
@@ -139,7 +139,7 @@ namespace NaOtvet
             this.Button1.Location = new System.Drawing.Point(3, 60);
             this.Button1.MinimumSize = new System.Drawing.Size(0, 40);
             this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(117, 40);
+            this.Button1.Size = new System.Drawing.Size(118, 40);
             this.Button1.TabIndex = 11;
             this.Button1.Text = "Кнопка 1";
             this.Button1.UseVisualStyleBackColor = false;

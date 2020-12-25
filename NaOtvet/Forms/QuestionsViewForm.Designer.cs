@@ -1,4 +1,6 @@
-﻿namespace NaOtvet
+﻿using NaOtvet.Controls;
+
+namespace NaOtvet
 {
     partial class QuestionsViewForm
     {
@@ -35,11 +37,11 @@
             this.SearchQueryTextPanel = new System.Windows.Forms.Panel();
             this.SearchQueryText = new System.Windows.Forms.TextBox();
             this.ExampleAnswerText = new System.Windows.Forms.Label();
-            this.QuestionsAnswersPanel = new System.Windows.Forms.Panel();
+            this.QuestionsViewPanel = new NaOtvet.Controls.PanelNoScrollOnFocus();
             this.NothingFindedLabel = new System.Windows.Forms.Label();
             this.SearchPanel.SuspendLayout();
             this.SearchQueryTextPanel.SuspendLayout();
-            this.QuestionsAnswersPanel.SuspendLayout();
+            this.QuestionsViewPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SearchPanel
@@ -133,14 +135,15 @@
             // 
             // QuestionsAnswersPanel
             // 
-            this.QuestionsAnswersPanel.AutoScroll = true;
-            this.QuestionsAnswersPanel.Controls.Add(this.NothingFindedLabel);
-            this.QuestionsAnswersPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.QuestionsAnswersPanel.Location = new System.Drawing.Point(0, 56);
-            this.QuestionsAnswersPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.QuestionsAnswersPanel.Name = "QuestionsAnswersPanel";
-            this.QuestionsAnswersPanel.Size = new System.Drawing.Size(820, 427);
-            this.QuestionsAnswersPanel.TabIndex = 1;
+            this.QuestionsViewPanel.AutoScroll = true;
+            this.QuestionsViewPanel.Controls.Add(this.NothingFindedLabel);
+            this.QuestionsViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.QuestionsViewPanel.Location = new System.Drawing.Point(0, 56);
+            this.QuestionsViewPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.QuestionsViewPanel.Name = "QuestionsAnswersPanel";
+            this.QuestionsViewPanel.Size = new System.Drawing.Size(820, 427);
+            this.QuestionsViewPanel.TabIndex = 1;
+            this.QuestionsViewPanel.Resize += new System.EventHandler(this.QuestionsViewPanel_Resize);
             // 
             // NothingFindedLabel
             // 
@@ -163,20 +166,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(820, 483);
-            this.Controls.Add(this.QuestionsAnswersPanel);
+            this.Controls.Add(this.QuestionsViewPanel);
             this.Controls.Add(this.SearchPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 530);
             this.Name = "QuestionsViewForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Просмотр вопросов";
-            this.Load += new System.EventHandler(this.QuestionsAnswersForm_Load);
-            this.Shown += new System.EventHandler(this.QuestionsAnswersForm_Shown);
+            this.Load += new System.EventHandler(this.QuestionsViewForm_Load);
+            this.Shown += new System.EventHandler(this.QuestionsViewForm_Shown);
             this.SearchPanel.ResumeLayout(false);
             this.SearchPanel.PerformLayout();
             this.SearchQueryTextPanel.ResumeLayout(false);
             this.SearchQueryTextPanel.PerformLayout();
-            this.QuestionsAnswersPanel.ResumeLayout(false);
+            this.QuestionsViewPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -189,7 +192,7 @@
         private System.Windows.Forms.Panel SearchQueryTextPanel;
         private System.Windows.Forms.CheckBox OnlyNotCollapsedQuestionsCheckBox;
         private System.Windows.Forms.Button ClearSearchQueryButton;
-        private System.Windows.Forms.Panel QuestionsAnswersPanel;
+        private PanelNoScrollOnFocus QuestionsViewPanel;
         private System.Windows.Forms.Label NothingFindedLabel;
     }
 }

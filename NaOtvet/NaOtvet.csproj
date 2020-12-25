@@ -56,6 +56,9 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -76,6 +79,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\PanelNoScrollOnFocus.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\QuestionView\ControlStateChangedEventArgs.cs" />
     <Compile Include="Controls\CustomizableLabel.cs">
       <SubType>Component</SubType>
@@ -136,6 +142,7 @@
     <Compile Include="Forms\TestInfoForm.Designer.cs">
       <DependentUpon>TestInfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cache.cs" />
     <EmbeddedResource Include="Forms\MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +178,7 @@
     <EmbeddedResource Include="Forms\TestInfoForm.resx">
       <DependentUpon>TestInfoForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

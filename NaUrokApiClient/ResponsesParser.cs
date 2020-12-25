@@ -72,6 +72,7 @@ namespace NaUrokApiClient
             var session = new TestSession();
 
             session.Id                  = json["session"]["id"].Value<int>();
+            session.UuId                = json["session"]["uuid"].ToString();
             session.SettingsId          = json["settings"]["id"]?.Value<int?>();
             session.CreatorId           = json["settings"]["account_id"]?.Value<int?>();
             session.TestName            = json["settings"]["name"]?.ToString();

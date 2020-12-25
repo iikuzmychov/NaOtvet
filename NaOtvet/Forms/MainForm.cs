@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using NaUrokApiClient;
 using System.Media;
 using NaOtvet.Api.Models;
+using System.Collections.Generic;
 
 namespace NaOtvet
 {
@@ -105,18 +106,32 @@ namespace NaOtvet
 
             try
             {
-                if (finderSystem is null)
+                if (Cache.CacheObjects
+                    .SolvedTestSessions
+                    .Where(session => session.Value.UuId == UuIdText.Text)
+                    .Count() == 1)
                 {
-                    finderSystem = new FinderSystem(client, UuIdText.Text, threadsCount, finderIterationsCount);
-                    finderSystem.OnNewDocument      += FinderSystem_OnNewDocument;
-                    finderSystem.OnDocumentIsFound  += FinderSystem_OnDocumentIsFound;
-                    finderSystem.OnError            += FinderSystem_OnError;
+                    var solvedSession = Cache.CacheObjects
+                        .SolvedTestSessions
+                        .First(session => session.Value.UuId == UuIdText.Text);
 
-                    finderSystem.Start();
+                    FinderSystem_OnDocumentIsFound(null, new OnTestDocumentIsFoundArgs(solvedSession.Key, solvedSession.Value));
                 }
                 else
                 {
-                    finderSystem.Restart(UuIdText.Text);
+                    if (finderSystem is null)
+                    {
+                        finderSystem = new FinderSystem(client, UuIdText.Text, threadsCount, finderIterationsCount);
+                        finderSystem.OnNewDocument += FinderSystem_OnNewDocument;
+                        finderSystem.OnDocumentIsFound += FinderSystem_OnDocumentIsFound;
+                        finderSystem.OnError += FinderSystem_OnError;
+
+                        finderSystem.Start();
+                    }
+                    else
+                    {
+                        finderSystem.Restart(UuIdText.Text);
+                    }
                 }
             }
             catch (Exception exception)
@@ -338,10 +353,20 @@ namespace NaOtvet
 
         private void FinderSystem_OnDocumentIsFound(object sender, OnTestDocumentIsFoundArgs args)
         {
+            if (Cache.CacheObjects
+                .SolvedTestSessions
+                .Contains(new KeyValuePair<int, TestSession>(args.DocumentId, args.TestSession)) == false)
+            {
+                Cache.CacheObjects.SolvedTestSessions.Add(new KeyValuePair<int, TestSession>(args.DocumentId, args.TestSession));
+            }
+
 #if DEBUG
             Log($"НАЙДЕНО: {args.DocumentId}.");
             Log($"Затрачено времени: {stopwatch.Elapsed}.");
-            Log($"Проверено тестов: {finderSystem.CheckedDocumentsCount}");
+
+            var testDocumentsChecked = finderSystem?.CheckedDocumentsCount is null ? 0 : finderSystem.CheckedDocumentsCount;
+
+            Log($"Проверено тестов: {testDocumentsChecked}");
 #else
             Log($"НАЙДЕНО!");
             Log($"Затрачено времени: {stopwatch.Elapsed}.");
@@ -352,7 +377,7 @@ namespace NaOtvet
                 Stop();                
                 SystemSounds.Asterisk.Play();
 
-                var questionsViewForm = new QuestionsViewForm(args.Questions, true);
+                var questionsViewForm = new QuestionsViewForm(args.TestSession.Questions, true);
                 questionsViewForm.TopMost = true;
                 questionsViewForm.Show();                
                 questionsViewForm.TopMost = false;

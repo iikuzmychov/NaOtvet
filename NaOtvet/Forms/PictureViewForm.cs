@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace NaOtvet
     {
         private Stream imageStream;
         private string pictureUrl;
+        private CancellationTokenSource loadingTaskSources = new CancellationTokenSource();
         private Task loadingTask;
 
         public static Dictionary<string, Image> CachedPictures { get; private set; } = new Dictionary<string, Image>();
@@ -32,13 +34,13 @@ namespace NaOtvet
         
         private void PictureViewForm_Load(object sender, EventArgs e)
         {
-            loadingTask = Task.Run(LoadPicture);
+            loadingTask = Task.Run(LoadPicture, loadingTaskSources.Token);
         }
 
         private void PictureViewForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             imageStream?.Dispose();
-            loadingTask?.Dispose();
+            loadingTaskSources.Cancel();
         }
 
         private void LoadPicture()
@@ -47,9 +49,9 @@ namespace NaOtvet
             {
                 Image picture;
 
-                if (CachedPictures.ContainsKey(pictureUrl))
+                if (Cache.CacheObjects.Pictures.ContainsKey(pictureUrl))
                 {
-                    picture = CachedPictures[pictureUrl];
+                    picture = Cache.CacheObjects.Pictures[pictureUrl];
                 }
                 else
                 {
@@ -59,13 +61,18 @@ namespace NaOtvet
                     if (ImageFormat.Gif.Equals(picture.RawFormat) == false)
                     {
                         imageStream.Dispose();
-                        CachedPictures.Add(pictureUrl, picture);
+
+                        if (Cache.CacheObjects.Pictures.ContainsKey(pictureUrl) == false)
+                        {
+                            Cache.CacheObjects.Pictures.Add(pictureUrl, picture);
+                            Cache.CacheObjects.Save();
+                        }
                     }
                 }
 
                 PictureView.Image = picture;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 PictureView.Image = PictureView.ErrorImage;
             }

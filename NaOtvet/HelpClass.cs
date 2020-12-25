@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Security.Principal;
@@ -89,6 +90,17 @@ namespace NaOtvet
                 return null;
         }
 
+        public static string HtmlToSmartPlainText(string html)
+        {
+            string preparedHtml = html
+                .Replace("</p>", "</p>" + Environment.NewLine);
+
+            if (preparedHtml.EndsWith(Environment.NewLine))
+                preparedHtml = preparedHtml.Remove(preparedHtml.Length - Environment.NewLine.Length);
+
+            return HtmlToPlainText(preparedHtml);
+        }
+
         public static decimal PointsToSystem(decimal points, decimal oldSystem, int newSystem)
         {
             return points * newSystem / oldSystem;
@@ -119,6 +131,42 @@ namespace NaOtvet
             }
 
             return TextFormatFlags.HorizontalCenter | TextFormatFlags.Top;
+        }
+
+        public static TextFormatFlags HorizontalAlignToFormatFlags(HorizontalAlignment align)
+        {
+            switch (align)
+            {
+                case HorizontalAlignment.Center:
+                    return TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                case HorizontalAlignment.Left:
+                    return TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
+                case HorizontalAlignment.Right:
+                    return TextFormatFlags.Right | TextFormatFlags.VerticalCenter;
+            }
+
+            return TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+        }
+
+        public static Color GetRandomColor()
+        {
+            var random = new Random();
+            var red     = random.Next(256);
+            var green   = random.Next(256);
+            var blue    = random.Next(256);
+
+            return Color.FromArgb(red, green, blue);
+        }
+
+        public static Color GetRandomLightColor()
+        {
+            var random = new Random();
+
+            var red     = random.Next(150, 256);
+            var green   = random.Next(150, 256);
+            var blue    = random.Next(150, 256);
+
+            return Color.FromArgb(red, green, blue);
         }
     }
 }

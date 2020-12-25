@@ -7,6 +7,7 @@ namespace NaUrokApiClient
     public class TestSession : ICloneable
     {
         public int Id { get; set; }        
+        public string UuId { get; set; }        
         public int? SettingsId { get; set; }        
         public int? CreatorId { get; set; }
         public string TestName { get; set; }
@@ -33,6 +34,7 @@ namespace NaUrokApiClient
         {
             var session = new TestSession();
             session.Id                  = Id;
+            session.UuId                = UuId;
             session.SettingsId          = SettingsId;
             session.CreatorId           = CreatorId;
             session.TestName            = TestName;

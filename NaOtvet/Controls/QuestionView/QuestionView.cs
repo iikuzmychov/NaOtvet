@@ -23,6 +23,14 @@ namespace NaOtvet
         private List<LinkLabel> picturesLinksLabels = new List<LinkLabel>();
         private ObservableCollection<UrlDescription> pictures = new ObservableCollection<UrlDescription>();
 
+        private static readonly List<Color> backgroungOptionColors = new List<Color>
+        {
+            Color.FromArgb(74, 253, 49),
+            Color.FromArgb(252, 204, 41),
+            Color.FromArgb(34, 197, 251),
+            Color.FromArgb(255, 36, 36)
+        };
+
         public EventHandler<ControlStateChangedEventArgs> OnControlStateChanged;
 
         public string Question
@@ -228,7 +236,12 @@ namespace NaOtvet
             if (IsMinimized != checkBox.Checked)
                 IsMinimized = checkBox.Checked;
         }
-
+        
+        private void QuestionText_DoubleClick(object sender, EventArgs e)
+        {
+            Clipboard.SetText(Question);
+            MessageForm.Show("Текст вопроса скопирован в буфер обмена");
+        }
 
         private void Pictures_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -338,14 +351,16 @@ namespace NaOtvet
             Label optionLabel;
 
             if (optionsLabels.Count > 0)
-                optionLabel = ExampleAnswerText.Clone();
+                optionLabel = ExampleOptionText.Clone();
             else
-                optionLabel = ExampleAnswerText;
+                optionLabel = ExampleOptionText;
 
             optionLabel.Text        = text;
             optionLabel.Visible     = true;
             optionLabel.AutoSize    = true;
-            optionLabel.Paint += OptionText_Paint;
+            optionLabel.BackColor   = GetBackgroundOptionColor();
+
+            optionLabel.DoubleClick += OptionText_DoubleClick;
                         
             optionsLabels.Add(optionLabel);
 
@@ -357,10 +372,27 @@ namespace NaOtvet
             return optionLabel;
         }
 
-        private void OptionText_Paint(object sender, PaintEventArgs e)
+        private Color GetBackgroundOptionColor()
         {
-            var label = sender as Label;
-            label.MaximumSize = new Size(OptionsPanel.ClientSize.Width, 0);
+            int baseColorIndex = optionsLabels.Count - backgroungOptionColors.Count * (int)(optionsLabels.Count / backgroungOptionColors.Count);
+            var baseColor = backgroungOptionColors[baseColorIndex];
+            
+            return Color.FromArgb(35, baseColor);
+        }
+
+        private void OptionText_DoubleClick(object sender, EventArgs e)
+        {
+            var optionLabel = sender as Label;
+            var text = Options[optionsLabels.IndexOf(optionLabel)];
+
+            Clipboard.SetText(text);
+            MessageForm.Show("Текст опции скопирован в буфер обмена");
+        }
+
+        private void OptionsPanel_SizeChanged(object sender, EventArgs e)
+        {
+            foreach (var label in optionsLabels)
+                label.MaximumSize = new Size(OptionsPanel.Width, 0);
         }
     }
 }
