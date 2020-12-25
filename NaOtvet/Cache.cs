@@ -21,7 +21,10 @@ namespace NaOtvet
 
         private void Load()
         {
-            var cache = (Cache)JsonConvert.DeserializeObject(Settings.Default.Cache);
+            var settings = new JsonSerializerSettings();
+            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            var cache = (Cache)JsonConvert.DeserializeObject(Settings.Default.Cache, settings);
 
             Pictures            = cache?.Pictures is null ? new Dictionary<string, Image>() : cache.Pictures;
             SolvedTestSessions  = cache?.SolvedTestSessions is null ? new List<KeyValuePair<int, TestSession>>() : cache.SolvedTestSessions;
@@ -29,7 +32,10 @@ namespace NaOtvet
 
         public void Save()
         {
-            Settings.Default.Cache = JsonConvert.SerializeObject(this);
+            var settings = new JsonSerializerSettings();
+            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            Settings.Default.Cache = JsonConvert.SerializeObject(this, settings);
         }
     }
 }
